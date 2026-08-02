@@ -1,0 +1,75 @@
+{
+  "appTitle": "Calculador UGP",
+  "home": {
+    "calculate": "Calcular UGP",
+    "settings": "Opções",
+    "registeredMeals": "Refeições registradas"
+  },
+  "settings": {
+    "title": "Opções",
+    "darkMode": "Modo escuro",
+    "language": "Idioma",
+    "carbsPerUnit": "Gramas de carboidratos por unidade",
+    "caloriesPerUnit": "Calorias de gordura/proteína por unidade",
+    "exportData": "Exportar dados",
+    "importData": "Importar dados",
+    "saveExportAs": "Salvar como...",
+    "exportError": "Erro ao exportar",
+    "importError": "Erro ao importar",
+    "importSuccess": "Dados importados com sucesso"
+  },
+  "common": {
+    "comingSoon": "Em breve",
+    "back": "Voltar",
+    "cancel": "Cancelar",
+    "delete": "Excluir",
+    "confirm": "Confirmar"
+  },
+  "languages": {
+    "en": "English",
+    "es": "Español",
+    "de": "Deutsch",
+    "pt": "Português"
+  },
+  "calculadora": {
+    "title": "Calcular UGP",
+    "addPortion": "Adicionar porção",
+    "deleteAll": "Excluir todas",
+    "deleteAllConfirm": "Excluir todas as porções?",
+    "emptyPortion": "Porção vazia",
+    "fromMeal": "De refeição",
+    "searchMeal": "Buscar refeição...",
+    "selectMeal": "Selecionar uma refeição",
+    "gramsConsumed": "Gramas consumidas",
+    "totalCarbs": "Carboidratos totais",
+    "totalFat": "Gorduras totais",
+    "totalProtein": "Proteínas totais",
+    "carbsCalories": "Calorias de carb.",
+    "fatCalories": "Calorias de gord.",
+    "proteinCalories": "Calorias de prot.",
+    "insulinUnits": "Unidades de insulina (carb.)",
+    "ugp": "UGP",
+    "portionName": "Porção",
+    "registerAsMeal": "Salvar como refeição",
+    "gramsForMeal": "A quantas gramas corresponde esta refeição?",
+    "deletePortion": "Excluir porção",
+    "deletePortionConfirm": "Excluir esta porção?",
+    "macroC": "C",
+    "macroF": "G",
+    "macroP": "P"
+  },
+  "meals": {
+    "title": "Refeições registradas",
+    "addMeal": "Adicionar refeição",
+    "editMeal": "Editar refeição",
+    "deleteMeal": "Excluir refeição",
+    "deleteMealConfirm": "Excluir esta refeição?",
+    "name": "Nome",
+    "portion": "Porção (g)",
+    "carbs": "Carboidratos (g)",
+    "fat": "Gorduras (g)",
+    "protein": "Proteínas (g)",
+    "save": "Salvar",
+    "noMeals": "Nenhuma refeição registrada"
+  }
+}

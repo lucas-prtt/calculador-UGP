@@ -1,1 +1,21 @@
-**/calculador-UGP/**
+# dependencies
+node_modules/
+
+# build output
+dist/
+
+# Capacitor generated native projects
+/android
+/ios
+
+# environment
+.env
+.env*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# debug
+npm-debug.*
+*.tsbuildinfo

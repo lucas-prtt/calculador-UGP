@@ -1,0 +1,75 @@
+{
+  "appTitle": "Calculador UGP",
+  "home": {
+    "calculate": "Calcular UGP",
+    "settings": "Opciones",
+    "registeredMeals": "Comidas registradas"
+  },
+  "settings": {
+    "title": "Opciones",
+    "darkMode": "Modo oscuro",
+    "language": "Idioma",
+    "carbsPerUnit": "Gramos de carbohidratos por unidad",
+    "caloriesPerUnit": "Calorías de grasa/proteína por unidad",
+    "exportData": "Exportar datos",
+    "importData": "Importar datos",
+    "saveExportAs": "Guardar como...",
+    "exportError": "Error al exportar",
+    "importError": "Error al importar",
+    "importSuccess": "Datos importados correctamente"
+  },
+  "common": {
+    "comingSoon": "Próximamente",
+    "back": "Volver",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "confirm": "Confirmar"
+  },
+  "languages": {
+    "en": "English",
+    "es": "Español",
+    "de": "Deutsch",
+    "pt": "Português"
+  },
+  "calculadora": {
+    "title": "Calcular UGP",
+    "addPortion": "Agregar porción",
+    "deleteAll": "Eliminar todas",
+    "deleteAllConfirm": "Eliminar todas las porciones?",
+    "emptyPortion": "Porción vacía",
+    "fromMeal": "Desde comida",
+    "searchMeal": "Buscar comida...",
+    "selectMeal": "Seleccionar una comida",
+    "gramsConsumed": "Gramos consumidos",
+    "totalCarbs": "Carbohidratos totales",
+    "totalFat": "Grasas totales",
+    "totalProtein": "Proteínas totales",
+    "carbsCalories": "Calorías de carb.",
+    "fatCalories": "Calorías de grasas",
+    "proteinCalories": "Calorías de prot.",
+    "insulinUnits": "Unidades de insulina (carb.)",
+    "ugp": "UGP",
+    "portionName": "Porción",
+    "registerAsMeal": "Guardar como comida",
+    "gramsForMeal": "A cuantos gramos corresponde esta comida?",
+    "deletePortion": "Eliminar porción",
+    "deletePortionConfirm": "Eliminar esta porción?",
+    "macroC": "C",
+    "macroF": "G",
+    "macroP": "P"
+  },
+  "meals": {
+    "title": "Comidas registradas",
+    "addMeal": "Agregar comida",
+    "editMeal": "Editar comida",
+    "deleteMeal": "Eliminar comida",
+    "deleteMealConfirm": "Eliminar esta comida?",
+    "name": "Nombre",
+    "portion": "Porción (g)",
+    "carbs": "Carbohidratos (g)",
+    "fat": "Grasas (g)",
+    "protein": "Proteínas (g)",
+    "save": "Guardar",
+    "noMeals": "No hay comidas registradas"
+  }
+}

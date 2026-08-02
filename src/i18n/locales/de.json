@@ -1,0 +1,75 @@
+{
+  "appTitle": "FPE Rechner",
+  "home": {
+    "calculate": "FPE berechnen",
+    "settings": "Einstellungen",
+    "registeredMeals": "Registrierte Mahlzeiten"
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "darkMode": "Dunkelmodus",
+    "language": "Sprache",
+    "carbsPerUnit": "Kohlenhydrate pro Einheit (g)",
+    "caloriesPerUnit": "Fett/Protein Kalorien pro Einheit (kcal)",
+    "exportData": "Daten exportieren",
+    "importData": "Daten importieren",
+    "saveExportAs": "Speichern als...",
+    "exportError": "Export fehlgeschlagen",
+    "importError": "Import fehlgeschlagen",
+    "importSuccess": "Daten erfolgreich importiert"
+  },
+  "common": {
+    "comingSoon": "Demnächst verfügbar",
+    "back": "Zurück",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "confirm": "Bestätigen"
+  },
+  "languages": {
+    "en": "English",
+    "es": "Español",
+    "de": "Deutsch",
+    "pt": "Português"
+  },
+  "calculadora": {
+    "title": "FPE berechnen",
+    "addPortion": "Portion hinzufügen",
+    "deleteAll": "Alle löschen",
+    "deleteAllConfirm": "Alle Portionen löschen?",
+    "emptyPortion": "Leere Portion",
+    "fromMeal": "Aus Mahlzeit",
+    "searchMeal": "Mahlzeit suchen...",
+    "selectMeal": "Mahlzeit auswählen",
+    "gramsConsumed": "Gramm verzehrt",
+    "totalCarbs": "Kohlenhydrate gesamt",
+    "totalFat": "Fett gesamt",
+    "totalProtein": "Protein gesamt",
+    "carbsCalories": "Kohlenhydrat-Kalorien",
+    "fatCalories": "Fett-Kalorien",
+    "proteinCalories": "Protein-Kalorien",
+    "insulinUnits": "Insulin-Einheiten (KH)",
+    "ugp": "FPE",
+    "portionName": "Portion",
+    "registerAsMeal": "Als Mahlzeit speichern",
+    "gramsForMeal": "Wie viele Gramm hat diese Mahlzeit?",
+    "deletePortion": "Portion löschen",
+    "deletePortionConfirm": "Diese Portion löschen?",
+    "macroC": "K",
+    "macroF": "F",
+    "macroP": "P"
+  },
+  "meals": {
+    "title": "Registrierte Mahlzeiten",
+    "addMeal": "Mahlzeit hinzufügen",
+    "editMeal": "Mahlzeit bearbeiten",
+    "deleteMeal": "Mahlzeit löschen",
+    "deleteMealConfirm": "Diese Mahlzeit löschen?",
+    "name": "Name",
+    "portion": "Portion (g)",
+    "carbs": "Kohlenhydrate (g)",
+    "fat": "Fett (g)",
+    "protein": "Protein (g)",
+    "save": "Speichern",
+    "noMeals": "Keine Mahlzeiten registriert"
+  }
+}

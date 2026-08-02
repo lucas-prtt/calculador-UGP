@@ -1,0 +1,75 @@
+{
+  "appTitle": "FPU Calculator",
+  "home": {
+    "calculate": "Calculate FPU",
+    "settings": "Settings",
+    "registeredMeals": "Registered Meals"
+  },
+  "settings": {
+    "title": "Settings",
+    "darkMode": "Dark Mode",
+    "language": "Language",
+    "carbsPerUnit": "Carbs per unit (g)",
+    "caloriesPerUnit": "Fat/protein calories per unit (kcal)",
+    "exportData": "Export data",
+    "importData": "Import data",
+    "saveExportAs": "Save as...",
+    "exportError": "Export failed",
+    "importError": "Import failed",
+    "importSuccess": "Data imported successfully"
+  },
+  "common": {
+    "comingSoon": "Coming soon",
+    "back": "Back",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "confirm": "Confirm"
+  },
+  "languages": {
+    "en": "English",
+    "es": "Español",
+    "de": "Deutsch",
+    "pt": "Português"
+  },
+  "calculadora": {
+    "title": "Calculate FPU",
+    "addPortion": "Add portion",
+    "deleteAll": "Delete all",
+    "deleteAllConfirm": "Delete all portions?",
+    "emptyPortion": "Empty portion",
+    "fromMeal": "From meal",
+    "searchMeal": "Search meal...",
+    "selectMeal": "Select a meal",
+    "gramsConsumed": "Grams consumed",
+    "totalCarbs": "Total carbs",
+    "totalFat": "Total fat",
+    "totalProtein": "Total protein",
+    "carbsCalories": "Carbs calories",
+    "fatCalories": "Fat calories",
+    "proteinCalories": "Protein calories",
+    "insulinUnits": "Carbs insulin units",
+    "ugp": "FPU",
+    "portionName": "Portion",
+    "registerAsMeal": "Save as meal",
+    "gramsForMeal": "How many grams is this meal?",
+    "deletePortion": "Delete portion",
+    "deletePortionConfirm": "Delete this portion?",
+    "macroC": "C",
+    "macroF": "F",
+    "macroP": "P"
+  },
+  "meals": {
+    "title": "Registered Meals",
+    "addMeal": "Add meal",
+    "editMeal": "Edit meal",
+    "deleteMeal": "Delete meal",
+    "deleteMealConfirm": "Delete this meal?",
+    "name": "Name",
+    "portion": "Portion (g)",
+    "carbs": "Carbs (g)",
+    "fat": "Fat (g)",
+    "protein": "Protein (g)",
+    "save": "Save",
+    "noMeals": "No meals registered yet"
+  }
+}
