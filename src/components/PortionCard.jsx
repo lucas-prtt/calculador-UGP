@@ -2,11 +2,13 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../contexts/ThemeContext';
 import { useMeals } from '../contexts/MealsContext';
+import { useDialog } from './Dialog';
 
 export default function PortionCard({ portion, onUpdate, onRemove }) {
   const { t } = useTranslation();
   const { isDark } = useTheme();
   const { meals, addMeal } = useMeals();
+  const { showConfirm } = useDialog();
   const [registerVisible, setRegisterVisible] = useState(false);
   const [registerGrams, setRegisterGrams] = useState('');
 
@@ -57,9 +59,9 @@ export default function PortionCard({ portion, onUpdate, onRemove }) {
   };
 
   const handleRemove = () => {
-    if (window.confirm(t('calculadora.deletePortionConfirm'))) {
+    showConfirm(t('calculadora.deletePortionConfirm'), () => {
       onRemove(portion.id);
-    }
+    });
   };
 
   const macroValue = (val) => (val != null ? String(val) : '');

@@ -4,6 +4,7 @@ import { useTheme } from '../contexts/ThemeContext';
 import { useStorage } from '../storage/StorageContext';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Home } from 'lucide-react';
+import { useDialog } from '../components/Dialog';
 import ExportImport from '../components/ExportImport';
 
 export default function Opciones() {
@@ -11,6 +12,7 @@ export default function Opciones() {
   const navigate = useNavigate();
   const { theme, isDark, setTheme } = useTheme();
   const storage = useStorage();
+  const { showConfirm } = useDialog();
 
   const [carbs, setCarbs] = useState('15');
   const [calories, setCalories] = useState('150');
@@ -33,10 +35,12 @@ export default function Opciones() {
   };
 
   const restoreDefaults = () => {
-    setCarbs('15');
-    setCalories('150');
-    storage.set('carbsPerUnit', 15);
-    storage.set('caloriesPerUnit', 150);
+    showConfirm(t('settings.restoreDefaultsConfirm'), () => {
+      setCarbs('15');
+      setCalories('150');
+      storage.set('carbsPerUnit', 15);
+      storage.set('caloriesPerUnit', 150);
+    });
   };
 
   const textColor = isDark ? '#FFFFFF' : '#000000';

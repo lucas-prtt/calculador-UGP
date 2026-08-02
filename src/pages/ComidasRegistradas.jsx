@@ -4,6 +4,7 @@ import { useTheme } from '../contexts/ThemeContext';
 import { useMeals } from '../contexts/MealsContext';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Home } from 'lucide-react';
+import { useDialog } from '../components/Dialog';
 import MealCard from '../components/MealCard';
 import MealFormDialog from '../components/MealFormDialog';
 
@@ -31,9 +32,9 @@ export default function ComidasRegistradas() {
   };
 
   const handleDelete = (meal) => {
-    if (window.confirm(t('meals.deleteMealConfirm'))) {
+    showConfirm(t('meals.deleteMealConfirm'), () => {
       deleteMeal(meal.id);
-    }
+    });
   };
 
   const handleSave = (data) => {

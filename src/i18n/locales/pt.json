@@ -17,14 +17,16 @@
     "exportError": "Erro ao exportar",
     "importError": "Erro ao importar",
     "importSuccess": "Dados importados com sucesso",
-    "restoreDefaults": "Restaurar valores padrão"
+    "restoreDefaults": "Restaurar valores padrão",
+    "restoreDefaultsConfirm": "Restaurar valores padrão?"
   },
   "common": {
     "comingSoon": "Em breve",
     "back": "Voltar",
     "cancel": "Cancelar",
     "delete": "Excluir",
-    "confirm": "Confirmar"
+    "confirm": "Confirmar",
+    "ok": "OK"
   },
   "languages": {
     "en": "English",

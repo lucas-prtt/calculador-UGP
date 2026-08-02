@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '../contexts/ThemeContext';
 import { useStorage } from '../storage/StorageContext';
 import { useMeals } from '../contexts/MealsContext';
+import { useDialog } from './Dialog';
 import i18n from '../i18n';
 
 const KNOWN_SETTINGS = ['theme', 'language', 'carbsPerUnit', 'caloriesPerUnit'];
@@ -11,6 +12,7 @@ export default function ExportImport() {
   const storage = useStorage();
   const { meals, addMeal } = useMeals();
   const { setTheme, isDark } = useTheme();
+  const { showAlert } = useDialog();
 
   const cardBg = isDark ? '#1C1C1E' : '#F2F2F7';
 
@@ -63,11 +65,11 @@ export default function ExportImport() {
   };
 
   const showSuccess = () => {
-    window.alert(t('settings.importSuccess'));
+    showAlert(t('settings.importSuccess'));
   };
 
   const showError = (err) => {
-    window.alert(t('settings.importError'));
+    showAlert(t('settings.importError'));
   };
 
   const handleExport = async () => {

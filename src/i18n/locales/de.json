@@ -17,14 +17,16 @@
     "exportError": "Export fehlgeschlagen",
     "importError": "Import fehlgeschlagen",
     "importSuccess": "Daten erfolgreich importiert",
-    "restoreDefaults": "Standardwerte wiederherstellen"
+    "restoreDefaults": "Standardwerte wiederherstellen",
+    "restoreDefaultsConfirm": "Standardwerte wiederherstellen?"
   },
   "common": {
     "comingSoon": "Demnächst verfügbar",
     "back": "Zurück",
     "cancel": "Abbrechen",
     "delete": "Löschen",
-    "confirm": "Bestätigen"
+    "confirm": "Bestätigen",
+    "ok": "OK"
   },
   "languages": {
     "en": "English",

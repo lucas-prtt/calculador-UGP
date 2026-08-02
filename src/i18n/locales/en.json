@@ -17,14 +17,16 @@
     "exportError": "Export failed",
     "importError": "Import failed",
     "importSuccess": "Data imported successfully",
-    "restoreDefaults": "Restore default values"
+    "restoreDefaults": "Restore default values",
+    "restoreDefaultsConfirm": "Restore default values?"
   },
   "common": {
     "comingSoon": "Coming soon",
     "back": "Back",
     "cancel": "Cancel",
     "delete": "Delete",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "ok": "OK"
   },
   "languages": {
     "en": "English",

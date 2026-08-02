@@ -4,6 +4,7 @@ import { useTheme } from '../contexts/ThemeContext';
 import { useCalculate } from '../contexts/CalculateContext';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Home } from 'lucide-react';
+import { useDialog } from '../components/Dialog';
 import PortionCard from '../components/PortionCard';
 import AddPortionDialog from '../components/AddPortionDialog';
 import TotalsBar from '../components/TotalsBar';
@@ -13,6 +14,7 @@ export default function Calculadora() {
   const navigate = useNavigate();
   const { isDark } = useTheme();
   const { portions, addEmptyPortion, addMealPortion, updatePortion, removePortion, clearAll } = useCalculate();
+  const { showConfirm } = useDialog();
   const [dialogVisible, setDialogVisible] = useState(false);
 
   const textColor = isDark ? '#FFFFFF' : '#000000';
@@ -21,9 +23,7 @@ export default function Calculadora() {
 
   const handleDeleteAll = () => {
     if (portions.length === 0) return;
-    if (window.confirm(t('calculadora.deleteAllConfirm'))) {
-      clearAll();
-    }
+    showConfirm(t('calculadora.deleteAllConfirm'), clearAll);
   };
 
   return (
