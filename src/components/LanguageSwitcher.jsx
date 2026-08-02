@@ -2,30 +2,22 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../contexts/ThemeContext';
 import { useStorage } from '../storage/StorageContext';
+import EnFlag from '../assets/flags/en.svg';
+import EsFlag from '../assets/flags/es.svg';
+import DeFlag from '../assets/flags/de.svg';
+import PtFlag from '../assets/flags/pt.svg';
 
+const FLAGS = { en: EnFlag, es: EsFlag, de: DeFlag, pt: PtFlag };
 const LANGUAGES = ['en', 'es', 'de', 'pt'];
 
 function CircleFlag({ code, size }) {
-  const v = size / 36;
-  const s = (n) => (n * v).toFixed(1);
-  const stripW = s(12);
-  const stripY1 = s(12);
-  const stripY2 = s(24);
-  const halfW = s(18);
-
-  const flags = {
-    es: <g><rect width="36" height={stripW} fill="#AA151B"/><rect y={stripY1} width="36" height={stripW} fill="#F1BF00"/><rect y={stripY2} width="36" height={stripW} fill="#AA151B"/></g>,
-    de: <g><rect width="36" height={stripW} fill="#000000"/><rect y={stripY1} width="36" height={stripW} fill="#DD0000"/><rect y={stripY2} width="36" height={stripW} fill="#FFCC00"/></g>,
-    pt: <g><rect width={halfW} height="36" fill="#006600"/><rect x={halfW} width={halfW} height="36" fill="#FF0000"/><circle cx={halfW} cy="18" r={s(5.5)} fill="#FF0" opacity="0.6"/></g>,
-    en: <g><rect width="36" height="36" fill="#012169"/><polygon points="0,0 16,18 0,36" fill="#C8102E"/><polygon points="36,0 20,18 36,36" fill="#C8102E"/><polygon points="0,15 21,18 0,21" fill="#FFFFFF"/><polygon points="36,15 15,18 36,21" fill="#FFFFFF"/><polygon points="15,0 18,0 18,36 15,36" fill="#FFFFFF"/><polygon points="21,0 18,0 18,36 21,36" fill="#C8102E"/><polygon points="0,15 0,12 36,18 36,21" fill="#C8102E"/></g>,
-  };
-
+  const src = FLAGS[code] || EsFlag;
   return (
-    <div style={{ width: size, height: size, borderRadius: '50%', overflow: 'hidden', flexShrink: 0, position: 'relative' }}>
-      <svg viewBox="0 0 36 36" width={size} height={size} style={{ display: 'block' }}>
-        {flags[code] || flags.es}
-      </svg>
-    </div>
+    <img
+      src={src}
+      alt={code}
+      style={{ width: size, height: size, borderRadius: '50%', display: 'block', flexShrink: 0 }}
+    />
   );
 }
 

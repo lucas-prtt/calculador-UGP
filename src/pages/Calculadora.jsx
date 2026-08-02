@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '../contexts/ThemeContext';
 import { useCalculate } from '../contexts/CalculateContext';
 import { useNavigate } from 'react-router-dom';
+import { ArrowLeft, Home } from 'lucide-react';
 import PortionCard from '../components/PortionCard';
 import AddPortionDialog from '../components/AddPortionDialog';
 import TotalsBar from '../components/TotalsBar';
@@ -30,13 +31,13 @@ export default function Calculadora() {
       <div className="header" style={{ borderColor: headerBorder }}>
         <div className="header-left">
           <button className="header-btn" onClick={() => navigate(-1)}>
-            {'\u2190'}
+            <ArrowLeft size={24} color="#208AEF" />
           </button>
         </div>
         <span className="header-title" style={{ color: textColor }}>{t('calculadora.title')}</span>
         <div className="header-right">
           <button className="header-btn" onClick={() => navigate('/')} title="Home">
-            {'\u2302'}
+            <Home size={24} color="#208AEF" />
           </button>
         </div>
       </div>

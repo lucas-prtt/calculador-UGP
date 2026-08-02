@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '../contexts/ThemeContext';
 import { useStorage } from '../storage/StorageContext';
 import { useNavigate } from 'react-router-dom';
+import { ArrowLeft, Home } from 'lucide-react';
 import ExportImport from '../components/ExportImport';
 
 export default function Opciones() {
@@ -43,13 +44,13 @@ export default function Opciones() {
       <div className="header" style={{ borderColor: headerBorder }}>
         <div className="header-left">
           <button className="header-btn" onClick={() => navigate(-1)}>
-            {'\u2190'}
+            <ArrowLeft size={24} color="#208AEF" />
           </button>
         </div>
         <span className="header-title" style={{ color: textColor }}>{t('settings.title')}</span>
         <div className="header-right">
           <button className="header-btn" onClick={() => navigate('/')} title="Home">
-            {'\u2302'}
+            <Home size={24} color="#208AEF" />
           </button>
         </div>
       </div>
