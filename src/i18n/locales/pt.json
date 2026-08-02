@@ -16,7 +16,8 @@
     "saveExportAs": "Salvar como...",
     "exportError": "Erro ao exportar",
     "importError": "Erro ao importar",
-    "importSuccess": "Dados importados com sucesso"
+    "importSuccess": "Dados importados com sucesso",
+    "restoreDefaults": "Restaurar valores padrão"
   },
   "common": {
     "comingSoon": "Em breve",

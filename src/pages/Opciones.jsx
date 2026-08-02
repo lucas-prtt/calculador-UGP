@@ -32,6 +32,13 @@ export default function Opciones() {
     if (num > 0) storage.set('caloriesPerUnit', num);
   };
 
+  const restoreDefaults = () => {
+    setCarbs('15');
+    setCalories('150');
+    storage.set('carbsPerUnit', 15);
+    storage.set('caloriesPerUnit', 150);
+  };
+
   const textColor = isDark ? '#FFFFFF' : '#000000';
   const bg = isDark ? '#000000' : '#FFFFFF';
   const cardBg = isDark ? '#1C1C1E' : '#F2F2F7';
@@ -111,6 +118,14 @@ export default function Opciones() {
         </div>
 
         <ExportImport />
+
+        <button
+          className="btn-danger"
+          onClick={restoreDefaults}
+          style={{ backgroundColor: cardBg }}
+        >
+          {t('settings.restoreDefaults')}
+        </button>
       </div>
     </div>
   );

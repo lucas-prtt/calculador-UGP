@@ -58,6 +58,13 @@ html, body, #root {
   justify-content: center;
   width: 36px;
   height: 36px;
+  border-radius: 8px;
+  transition: transform 0.1s, opacity 0.1s;
+}
+
+.header-btn:active {
+  transform: scale(0.9);
+  opacity: 0.6;
 }
 
 .content {
@@ -90,6 +97,12 @@ html, body, #root {
   cursor: pointer;
   width: 100%;
   text-align: center;
+  transition: transform 0.1s, opacity 0.1s;
+}
+
+.btn-primary:active {
+  transform: scale(0.97);
+  opacity: 0.8;
 }
 
 .btn-danger-text {
@@ -100,6 +113,12 @@ html, body, #root {
   font-weight: 500;
   cursor: pointer;
   padding: 8px 12px;
+  transition: transform 0.1s, opacity 0.1s;
+}
+
+.btn-danger-text:active {
+  transform: scale(0.95);
+  opacity: 0.7;
 }
 
 .btn-link {
@@ -109,6 +128,31 @@ html, body, #root {
   font-size: 16px;
   cursor: pointer;
   padding: 8px 16px;
+  transition: transform 0.1s, opacity 0.1s;
+}
+
+.btn-link:active {
+  transform: scale(0.95);
+  opacity: 0.7;
+}
+
+.btn-danger {
+  background: none;
+  border: none;
+  color: #FF3B30;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 14px 16px;
+  border-radius: 12px;
+  text-align: center;
+  width: 100%;
+  transition: transform 0.1s, opacity 0.1s;
+}
+
+.btn-danger:active {
+  transform: scale(0.97);
+  opacity: 0.7;
 }
 
 .card {
