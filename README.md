@@ -146,6 +146,20 @@ npm run preview
 
 Opens at `http://localhost:4173`.
 
+### Generate app icons and splash screen
+
+Place source images in the `assets/` folder, then run:
+
+```bash
+npx capacitor-assets generate --android
+```
+
+Source files:
+- `assets/icon-only.png` (1024x1024)
+- `assets/icon-foreground.png` (1024x1024)
+- `assets/icon-background.png` (1024x1024)
+- `assets/splash.png` (2732x2732)
+
 ### Build Android APK
 
 ```bash
