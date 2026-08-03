@@ -3,6 +3,8 @@ import { useTheme } from '../contexts/ThemeContext';
 import { useStorage } from '../storage/StorageContext';
 import { useMeals } from '../contexts/MealsContext';
 import { useDialog } from './Dialog';
+import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
+import { Share } from '@capacitor/share';
 import i18n from '../i18n';
 
 const KNOWN_SETTINGS = ['theme', 'language', 'carbsPerUnit', 'caloriesPerUnit'];
@@ -64,29 +66,28 @@ export default function ExportImport() {
     }
   };
 
-  const showSuccess = () => {
-    showAlert(t('settings.importSuccess'));
-  };
-
-  const showError = (err) => {
-    showAlert(t('settings.importError'));
-  };
-
   const handleExport = async () => {
     try {
       const data = await buildExportData();
       const json = JSON.stringify(data, null, 2);
-      const blob = new Blob([json], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = 'export.json';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
+
+      const result = await Filesystem.writeFile({
+        path: 'export.json',
+        data: json,
+        directory: Directory.Cache,
+        encoding: Encoding.UTF8,
+      });
+
+      await Share.share({
+        title: t('settings.saveExportAs'),
+        text: t('settings.exportData'),
+        url: result.uri,
+        dialogTitle: t('settings.saveExportAs'),
+      });
     } catch (err) {
-      showError(err);
+      if (err?.message !== 'Share canceled') {
+        showAlert(t('settings.exportError'));
+      }
     }
   };
 
@@ -102,9 +103,9 @@ export default function ExportImport() {
         try {
           const data = JSON.parse(ev.target.result);
           applyImportData(data);
-          showSuccess();
+          showAlert(t('settings.importSuccess'));
         } catch {
-          showError();
+          showAlert(t('settings.importError'));
         }
       };
       reader.readAsText(file);

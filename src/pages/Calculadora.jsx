@@ -46,18 +46,19 @@ export default function Calculadora() {
         {portions.length === 0 ? (
           <div className="empty-text">{t('calculadora.addPortion')}</div>
         ) : (
-          <>
-            <div className="list">
-              {portions.map((item) => (
-                <PortionCard key={item.id} portion={item} onUpdate={updatePortion} onRemove={removePortion} />
-              ))}
-            </div>
-            <div style={{ paddingTop: 12 }}>
-              <TotalsBar portions={portions} />
-            </div>
-          </>
+          <div className="list">
+            {portions.map((item) => (
+              <PortionCard key={item.id} portion={item} onUpdate={updatePortion} onRemove={removePortion} />
+            ))}
+          </div>
         )}
       </div>
+
+      {portions.length > 0 && (
+        <div style={{ padding: '12px 16px 0', flexShrink: 0 }}>
+          <TotalsBar portions={portions} />
+        </div>
+      )}
 
       <div className="bottom-bar">
         <button className="btn-primary" style={{ flex: 1 }} onClick={() => setDialogVisible(true)}>
