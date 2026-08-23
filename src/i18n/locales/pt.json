@@ -18,7 +18,11 @@
     "importError": "Erro ao importar",
     "importSuccess": "Dados importados com sucesso",
     "restoreDefaults": "Restaurar valores padrão",
-    "restoreDefaultsConfirm": "Restaurar valores padrão?"
+    "restoreDefaultsConfirm": "Restaurar valores padrão?",
+    "advancedCarbsPerUnit": "Configuração avançada de carboidratos por unidade",
+    "configureByHour": "Configurar por hora",
+    "dragHint": "Arraste os pontos para ajustar as gramas por unidade conforme o horário.",
+    "save": "Salvar"
   },
   "common": {
     "comingSoon": "Em breve",

@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../contexts/ThemeContext';
 import { useCalculate } from '../contexts/CalculateContext';
+import { useSettings } from '../contexts/SettingsContext';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Home, Settings } from 'lucide-react';
+import { ArrowLeft, Home } from 'lucide-react';
 import { useDialog } from '../components/Dialog';
 import PortionCard from '../components/PortionCard';
 import AddPortionDialog from '../components/AddPortionDialog';
@@ -15,11 +16,13 @@ export default function Calculadora() {
   const navigate = useNavigate();
   const { isDark } = useTheme();
   const { portions, addEmptyPortion, addMealPortion, updatePortion, removePortion, clearAll } = useCalculate();
+  const { advancedCarbsPerUnit, carbsPerUnit, currentGramsPerUnit, currentTimeLabel } = useSettings();
   const { showConfirm } = useDialog();
   const [dialogVisible, setDialogVisible] = useState(false);
   const [settingsVisible, setSettingsVisible] = useState(false);
 
   const textColor = isDark ? '#FFFFFF' : '#000000';
+  const secondaryColor = '#8E8E93';
   const bg = isDark ? '#000000' : '#FFFFFF';
   const headerBorder = isDark ? '#38383A' : '#D1D1D6';
 
@@ -37,10 +40,22 @@ export default function Calculadora() {
           </button>
         </div>
         <span className="header-title" style={{ color: textColor }}>{t('calculadora.title')}</span>
-        <div className="header-right" style={{ width: 96, gap: 4 }}>
-          <button className="header-btn" onClick={() => setSettingsVisible(true)} title={t('home.settings')}>
-            <Settings size={24} color="#208AEF" />
-          </button>
+        <div className="header-right" style={{ width: 'auto', minWidth: 96, gap: 8 }}>
+          {advancedCarbsPerUnit ? (
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', justifyContent: 'center', lineHeight: 1.15 }}>
+              <span style={{ fontSize: 11, color: secondaryColor }}>{currentTimeLabel}</span>
+              <span style={{ fontSize: 16, fontWeight: 700, color: textColor }}>{currentGramsPerUnit.toFixed(1)} G/U</span>
+            </div>
+          ) : (
+            <button
+              className="header-btn"
+              onClick={() => setSettingsVisible(true)}
+              title={t('home.settings')}
+              style={{ width: 'auto', padding: '0 6px', fontSize: 20, fontWeight: 700, color: '#208AEF' }}
+            >
+              {carbsPerUnit} G/U
+            </button>
+          )}
           <button className="header-btn" onClick={() => navigate('/')} title="Home">
             <Home size={24} color="#208AEF" />
           </button>
@@ -84,7 +99,7 @@ export default function Calculadora() {
         />
       )}
 
-      {settingsVisible && (
+      {settingsVisible && !advancedCarbsPerUnit && (
         <SettingsDialog onClose={() => setSettingsVisible(false)} />
       )}
     </div>

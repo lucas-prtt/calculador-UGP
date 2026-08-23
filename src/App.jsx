@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Calculadora from './pages/Calculadora';
 import ComidasRegistradas from './pages/ComidasRegistradas';
 import Opciones from './pages/Opciones';
+import ConfigurarPorHora from './pages/ConfigurarPorHora';
 
 function AppRoutes() {
   const { i18n } = useTranslation();
@@ -31,6 +32,7 @@ function AppRoutes() {
       <Route path="/calculadora" element={<Calculadora />} />
       <Route path="/comidas-registradas" element={<ComidasRegistradas />} />
       <Route path="/opciones" element={<Opciones />} />
+      <Route path="/configurar-por-hora" element={<ConfigurarPorHora />} />
     </Routes>
   );
 }

@@ -11,7 +11,7 @@ export default function Opciones() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { theme, isDark, setTheme } = useTheme();
-  const { carbsPerUnit, caloriesPerUnit, saveCarbsPerUnit, saveCaloriesPerUnit } = useSettings();
+  const { carbsPerUnit, caloriesPerUnit, advancedCarbsPerUnit, saveCarbsPerUnit, saveCaloriesPerUnit, saveAdvancedCarbsPerUnit } = useSettings();
   const { showConfirm } = useDialog();
 
   const [carbs, setCarbs] = useState(String(carbsPerUnit));
@@ -96,12 +96,37 @@ export default function Opciones() {
           <input
             type="number"
             className="input-field"
-            style={{ backgroundColor: inputBg, borderColor: inputBorder, color: textColor }}
+            style={{ backgroundColor: inputBg, borderColor: inputBorder, color: textColor, opacity: advancedCarbsPerUnit ? 0.4 : 1 }}
             value={carbs}
             onChange={(e) => saveCarbs(e.target.value)}
             placeholder="15"
+            disabled={advancedCarbsPerUnit}
           />
         </div>
+
+        <div className="card" style={{
+          backgroundColor: cardBg,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: 16,
+        }}>
+          <span style={{ color: textColor, fontSize: 16, flex: 1 }}>{t('settings.advancedCarbsPerUnit')}</span>
+          <label className="toggle-switch">
+            <input
+              type="checkbox"
+              checked={advancedCarbsPerUnit}
+              onChange={(e) => saveAdvancedCarbsPerUnit(e.target.checked)}
+            />
+            <span className="toggle-slider" />
+          </label>
+        </div>
+
+        {advancedCarbsPerUnit && (
+          <button className="btn-primary" onClick={() => navigate('/configurar-por-hora')}>
+            {t('settings.configureByHour')}
+          </button>
+        )}
 
         <div className="card" style={{
           backgroundColor: cardBg,

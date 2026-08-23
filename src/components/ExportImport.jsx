@@ -7,7 +7,7 @@ import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import { Share } from '@capacitor/share';
 import i18n from '../i18n';
 
-const KNOWN_SETTINGS = ['theme', 'language', 'carbsPerUnit', 'caloriesPerUnit'];
+const KNOWN_SETTINGS = ['theme', 'language', 'carbsPerUnit', 'caloriesPerUnit', 'advancedCarbsPerUnit', 'carbsPerUnitCurve'];
 
 export default function ExportImport() {
   const { t } = useTranslation();
@@ -23,6 +23,8 @@ export default function ExportImport() {
     const language = await storage.get('language');
     const carbsPerUnit = await storage.get('carbsPerUnit');
     const caloriesPerUnit = await storage.get('caloriesPerUnit');
+    const advancedCarbsPerUnit = await storage.get('advancedCarbsPerUnit');
+    const carbsPerUnitCurve = await storage.get('carbsPerUnitCurve');
 
     return {
       version: 1,
@@ -32,6 +34,8 @@ export default function ExportImport() {
         language: language || i18n.language,
         carbsPerUnit: carbsPerUnit ?? 15,
         caloriesPerUnit: caloriesPerUnit ?? 150,
+        advancedCarbsPerUnit: advancedCarbsPerUnit ?? false,
+        carbsPerUnitCurve: carbsPerUnitCurve ?? null,
       },
       meals,
     };

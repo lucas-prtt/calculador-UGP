@@ -18,7 +18,11 @@
     "importError": "Import failed",
     "importSuccess": "Data imported successfully",
     "restoreDefaults": "Restore default values",
-    "restoreDefaultsConfirm": "Restore default values?"
+    "restoreDefaultsConfirm": "Restore default values?",
+    "advancedCarbsPerUnit": "Advanced carbs per unit configuration",
+    "configureByHour": "Configure by hour",
+    "dragHint": "Drag the points to adjust grams per unit by time of day.",
+    "save": "Save"
   },
   "common": {
     "comingSoon": "Coming soon",

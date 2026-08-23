@@ -5,7 +5,7 @@ import { useSettings } from '../contexts/SettingsContext';
 export default function TotalsBar({ portions }) {
   const { t } = useTranslation();
   const { isDark } = useTheme();
-  const { carbsPerUnit, caloriesPerUnit } = useSettings();
+  const { currentGramsPerUnit, caloriesPerUnit } = useSettings();
 
   const bg = isDark ? '#1C1C1E' : '#F2F2F7';
   const textColor = isDark ? '#FFFFFF' : '#000000';
@@ -18,7 +18,7 @@ export default function TotalsBar({ portions }) {
   const carbsCal = totalCarbs * 4;
   const fatCal = totalFat * 9;
   const proteinCal = totalProtein * 4;
-  const insulinUnits = carbsPerUnit > 0 ? totalCarbs / carbsPerUnit : 0;
+  const insulinUnits = currentGramsPerUnit > 0 ? totalCarbs / currentGramsPerUnit : 0;
   const ugp = caloriesPerUnit > 0 ? (fatCal + proteinCal) / caloriesPerUnit : 0;
 
   const Row = ({ children }) => (
