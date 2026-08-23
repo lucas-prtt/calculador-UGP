@@ -2,18 +2,20 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '../contexts/ThemeContext';
 import { useStorage } from '../storage/StorageContext';
 import { useMeals } from '../contexts/MealsContext';
+import { useSettings } from '../contexts/SettingsContext';
 import { useDialog } from './Dialog';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import { Share } from '@capacitor/share';
+import { Capacitor } from '@capacitor/core';
+import LZString from 'lz-string';
 import i18n from '../i18n';
-
-const KNOWN_SETTINGS = ['theme', 'language', 'carbsPerUnit', 'caloriesPerUnit', 'advancedCarbsPerUnit', 'carbsPerUnitCurve'];
 
 export default function ExportImport() {
   const { t } = useTranslation();
   const storage = useStorage();
-  const { meals, addMeal } = useMeals();
+  const { meals, replaceMeals } = useMeals();
   const { setTheme, isDark } = useTheme();
+  const { saveCarbsPerUnit, saveCaloriesPerUnit, saveAdvancedCarbsPerUnit, saveHoursOffset, saveCarbsPerUnitCurve } = useSettings();
   const { showAlert } = useDialog();
 
   const cardBg = isDark ? '#1C1C1E' : '#F2F2F7';
@@ -25,6 +27,7 @@ export default function ExportImport() {
     const caloriesPerUnit = await storage.get('caloriesPerUnit');
     const advancedCarbsPerUnit = await storage.get('advancedCarbsPerUnit');
     const carbsPerUnitCurve = await storage.get('carbsPerUnitCurve');
+    const hoursOffset = await storage.get('hoursOffset');
 
     return {
       version: 1,
@@ -36,58 +39,67 @@ export default function ExportImport() {
         caloriesPerUnit: caloriesPerUnit ?? 150,
         advancedCarbsPerUnit: advancedCarbsPerUnit ?? false,
         carbsPerUnitCurve: carbsPerUnitCurve ?? null,
+        hoursOffset: hoursOffset ?? 0,
       },
       meals,
     };
   };
 
   const applyImportData = (data) => {
-    if (data.settings) {
-      for (const key of KNOWN_SETTINGS) {
-        if (data.settings[key] !== undefined) {
-          if (key === 'language') {
-            i18n.changeLanguage(data.settings[key]);
-            storage.set('language', data.settings[key]);
-          } else if (key === 'theme') {
-            setTheme(data.settings[key]);
-          } else {
-            storage.set(key, data.settings[key]);
-          }
-        }
+    const s = data.settings;
+    if (s) {
+      if (s.theme !== undefined) setTheme(s.theme);
+      if (s.language !== undefined) {
+        i18n.changeLanguage(s.language);
+        storage.set('language', s.language);
       }
+      if (s.carbsPerUnit !== undefined) saveCarbsPerUnit(s.carbsPerUnit);
+      if (s.caloriesPerUnit !== undefined) saveCaloriesPerUnit(s.caloriesPerUnit);
+      if (s.advancedCarbsPerUnit !== undefined) saveAdvancedCarbsPerUnit(!!s.advancedCarbsPerUnit);
+      if (s.hoursOffset !== undefined) saveHoursOffset(s.hoursOffset);
+      if (Array.isArray(s.carbsPerUnitCurve)) saveCarbsPerUnitCurve(s.carbsPerUnitCurve);
     }
 
-    if (data.meals?.length) {
-      for (const meal of data.meals) {
-        addMeal({
-          name: meal.name,
-          portion: meal.portion,
-          carbs: meal.carbs,
-          fat: meal.fat,
-          protein: meal.protein,
-        });
-      }
+    if (Array.isArray(data.meals)) {
+      replaceMeals(data.meals);
     }
   };
 
   const handleExport = async () => {
     try {
       const data = await buildExportData();
-      const json = JSON.stringify(data, null, 2);
+      const json = JSON.stringify(data);
+      const compressed = LZString.compressToBase64(json);
 
-      const result = await Filesystem.writeFile({
-        path: 'export.json',
-        data: json,
-        directory: Directory.Cache,
-        encoding: Encoding.UTF8,
-      });
+      const now = new Date();
+      const pad = (n) => String(n).padStart(2, '0');
+      const filename = `UGP_${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}_${pad(now.getHours())}-${pad(now.getMinutes())}_export.json.lz64`;
 
-      await Share.share({
-        title: t('settings.saveExportAs'),
-        text: t('settings.exportData'),
-        url: result.uri,
-        dialogTitle: t('settings.saveExportAs'),
-      });
+      if (Capacitor.isNativePlatform()) {
+        const result = await Filesystem.writeFile({
+          path: filename,
+          data: compressed,
+          directory: Directory.Cache,
+          encoding: Encoding.UTF8,
+        });
+
+        await Share.share({
+          title: t('settings.saveExportAs'),
+          text: t('settings.exportData'),
+          url: result.uri,
+          dialogTitle: t('settings.saveExportAs'),
+        });
+      } else {
+        const blob = new Blob([compressed], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
     } catch (err) {
       if (err?.message !== 'Share canceled') {
         showAlert(t('settings.exportError'));
@@ -98,14 +110,21 @@ export default function ExportImport() {
   const handleImport = () => {
     const input = document.createElement('input');
     input.type = 'file';
-    input.accept = '.json,application/json';
+    input.accept = '.lz64,.json,application/json,text/plain';
     input.onchange = (e) => {
       const file = e.target.files[0];
       if (!file) return;
       const reader = new FileReader();
       reader.onload = (ev) => {
         try {
-          const data = JSON.parse(ev.target.result);
+          const text = String(ev.target.result).trim();
+          let data;
+          if (text.startsWith('{') || text.startsWith('[')) {
+            data = JSON.parse(text);
+          } else {
+            const json = LZString.decompressFromBase64(text);
+            data = json ? JSON.parse(json) : null;
+          }
           applyImportData(data);
           showAlert(t('settings.importSuccess'));
         } catch {

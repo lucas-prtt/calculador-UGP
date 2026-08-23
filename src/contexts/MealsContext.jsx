@@ -23,6 +23,19 @@ export function MealsProvider({ children }) {
     });
   }, []);
 
+  const replaceMeals = useCallback((newMeals) => {
+    const mapped = (newMeals || []).map((m, i) => ({
+      id: `${Date.now()}-${i}`,
+      name: m.name,
+      portion: m.portion,
+      carbs: m.carbs,
+      fat: m.fat,
+      protein: m.protein,
+    }));
+    setMeals(mapped);
+    storage.set('meals', mapped);
+  }, []);
+
   const updateMeal = useCallback((id, data) => {
     setMeals((prev) => {
       const updated = prev.map((m) => (m.id === id ? { ...m, ...data } : m));
@@ -40,7 +53,7 @@ export function MealsProvider({ children }) {
   }, []);
 
   return (
-    <MealsContext.Provider value={{ meals, loaded, addMeal, updateMeal, deleteMeal }}>
+    <MealsContext.Provider value={{ meals, loaded, addMeal, updateMeal, deleteMeal, replaceMeals }}>
       {children}
     </MealsContext.Provider>
   );
