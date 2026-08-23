@@ -27,6 +27,14 @@ export function formatTime(date) {
   return `${h}:${m}`;
 }
 
+export function formatOffset(minutes) {
+  const sign = minutes < 0 ? '-' : '+';
+  const abs = Math.abs(minutes);
+  const h = Math.floor(abs / 60);
+  const m = abs % 60;
+  return `${sign}${h}:${String(m).padStart(2, '0')}`;
+}
+
 // Pendientes de interpolación cúbica monótona (Fritsch–Carlson).
 // Garantiza que la curva no sobrepase los valores de los puntos entre los que
 // interpola (sin sobrepicos ni saltos).

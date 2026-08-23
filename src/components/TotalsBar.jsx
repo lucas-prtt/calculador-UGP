@@ -50,17 +50,17 @@ export default function TotalsBar({ portions }) {
       padding: 14,
     }}>
       <Row>
-        <Col label={t('calculadora.totalCarbs')} value={`${totalCarbs.toFixed(1)}g`} />
-        <Col label={t('calculadora.totalFat')} value={`${totalFat.toFixed(1)}g`} />
-        <Col label={t('calculadora.totalProtein')} value={`${totalProtein.toFixed(1)}g`} />
+        <Col label={t('calculadora.totalCarbs')} value={`${totalCarbs.toFixed(1)}${t('common.gram')}`} />
+        <Col label={t('calculadora.totalFat')} value={`${totalFat.toFixed(1)}${t('common.gram')}`} />
+        <Col label={t('calculadora.totalProtein')} value={`${totalProtein.toFixed(1)}${t('common.gram')}`} />
       </Row>
 
       <Divider />
 
       <Row>
-        <Col label={t('calculadora.carbsCalories')} value={`${carbsCal.toFixed(0)} kcal`} />
-        <Col label={t('calculadora.fatCalories')} value={`${fatCal.toFixed(0)} kcal`} />
-        <Col label={t('calculadora.proteinCalories')} value={`${proteinCal.toFixed(0)} kcal`} />
+        <Col label={t('calculadora.carbsCalories')} value={`${carbsCal.toFixed(0)} ${t('common.kcal')}`} />
+        <Col label={t('calculadora.fatCalories')} value={`${fatCal.toFixed(0)} ${t('common.kcal')}`} />
+        <Col label={t('calculadora.proteinCalories')} value={`${proteinCal.toFixed(0)} ${t('common.kcal')}`} />
       </Row>
 
       <Divider />

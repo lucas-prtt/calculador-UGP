@@ -10,6 +10,7 @@ export function SettingsProvider({ children }) {
   const [caloriesPerUnit, setCaloriesPerUnitState] = useState(150);
   const [advancedCarbsPerUnit, setAdvancedCarbsPerUnitState] = useState(false);
   const [carbsPerUnitCurve, setCarbsPerUnitCurveState] = useState(null);
+  const [hoursOffset, setHoursOffsetState] = useState(0);
   const [now, setNow] = useState(() => new Date());
 
   useEffect(() => {
@@ -19,6 +20,7 @@ export function SettingsProvider({ children }) {
     storage.get('carbsPerUnitCurve').then((v) => {
       if (Array.isArray(v) && v.length === SLOTS) setCarbsPerUnitCurveState(v);
     });
+    storage.get('hoursOffset').then((v) => { if (v !== null) setHoursOffsetState(v); });
   }, []);
 
   useEffect(() => {
@@ -46,6 +48,11 @@ export function SettingsProvider({ children }) {
     storage.set('advancedCarbsPerUnit', v);
   }, []);
 
+  const saveHoursOffset = useCallback((v) => {
+    setHoursOffsetState(v);
+    storage.set('hoursOffset', v);
+  }, []);
+
   const saveCarbsPerUnitCurve = useCallback((arr) => {
     const sanitized = Array.isArray(arr) && arr.length === SLOTS ? arr.slice() : defaultCurve(carbsPerUnit);
     setCarbsPerUnitCurveState(sanitized);
@@ -56,11 +63,13 @@ export function SettingsProvider({ children }) {
     ? carbsPerUnitCurve
     : defaultCurve(carbsPerUnit);
 
+  const effectiveNow = new Date(now.getTime() + hoursOffset * 60000);
+
   const currentGramsPerUnit = advancedCarbsPerUnit
-    ? round1(curveValueAt(curve, timeToHours(now)))
+    ? round1(curveValueAt(curve, timeToHours(effectiveNow)))
     : carbsPerUnit;
 
-  const currentTimeLabel = formatTime(now);
+  const currentTimeLabel = formatTime(effectiveNow);
 
   return (
     <SettingsContext.Provider
@@ -69,6 +78,7 @@ export function SettingsProvider({ children }) {
         caloriesPerUnit,
         advancedCarbsPerUnit,
         carbsPerUnitCurve: curve,
+        hoursOffset,
         currentGramsPerUnit,
         currentTimeLabel,
         setCarbsPerUnit,
@@ -77,6 +87,7 @@ export function SettingsProvider({ children }) {
         saveCaloriesPerUnit,
         saveAdvancedCarbsPerUnit,
         saveCarbsPerUnitCurve,
+        saveHoursOffset,
       }}
     >
       {children}

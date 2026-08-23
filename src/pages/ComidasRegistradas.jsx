@@ -58,7 +58,7 @@ export default function ComidasRegistradas() {
         </div>
         <span className="header-title" style={{ color: textColor }}>{t('meals.title')}</span>
         <div className="header-right">
-          <button className="header-btn" onClick={() => navigate('/')} title="Home">
+          <button className="header-btn" onClick={() => navigate('/')} title={t('common.home')}>
             <Home size={24} color="#208AEF" />
           </button>
         </div>

@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useTheme } from '../contexts/ThemeContext';
 import { snap05, clamp, curveValueAt, timeToHours, computeMonotoneSlopes } from '../utils/carbsCurve';
 
@@ -6,7 +7,8 @@ const STEP_PX = 48;
 const M = { top: 22, right: 20, bottom: 34, left: 44 };
 const MIN_HEIGHT = 320;
 
-export default function CarbsCurveChart({ curve, maxValue, onChange }) {
+export default function CarbsCurveChart({ curve, maxValue, offsetMinutes = 0, onChange }) {
+  const { t } = useTranslation();
   const { isDark } = useTheme();
   const wrapRef = useRef(null);
   const svgRef = useRef(null);
@@ -149,7 +151,7 @@ export default function CarbsCurveChart({ curve, maxValue, onChange }) {
     return arr;
   })();
 
-  const nowHours = timeToHours(new Date());
+  const nowHours = timeToHours(new Date(Date.now() + offsetMinutes * 60000));
   const nowX = xForHours(nowHours);
   const nowY = yForValue(curveValueAt(curve, nowHours));
 
@@ -241,7 +243,7 @@ export default function CarbsCurveChart({ curve, maxValue, onChange }) {
         ))}
 
         <text x={W - M.right} y={M.top - 8} fontSize={10} fill={secondaryColor} textAnchor="end">
-          G/U
+          {t('common.gPerUnit')}
         </text>
       </svg>
     </div>

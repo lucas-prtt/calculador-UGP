@@ -29,17 +29,17 @@ export default function MealCard({ meal, onEdit, onDelete }) {
         </div>
       </div>
       <div style={{ fontSize: 14, color: secondaryColor, marginTop: 4 }}>
-        {t('meals.portion')}: {meal.portion}g
+        {t('meals.portion')}: {meal.portion}{t('common.gram')}
       </div>
       <div style={{ display: 'flex', gap: 16, marginTop: 8 }}>
         <span style={{ fontSize: 14, fontWeight: 500, color: textColor }}>
-          {t('calculadora.macroC')}: {meal.carbs}g
+          {t('calculadora.macroC')}: {meal.carbs}{t('common.gram')}
         </span>
         <span style={{ fontSize: 14, fontWeight: 500, color: textColor }}>
-          {t('calculadora.macroF')}: {meal.fat}g
+          {t('calculadora.macroF')}: {meal.fat}{t('common.gram')}
         </span>
         <span style={{ fontSize: 14, fontWeight: 500, color: textColor }}>
-          {t('calculadora.macroP')}: {meal.protein}g
+          {t('calculadora.macroP')}: {meal.protein}{t('common.gram')}
         </span>
       </div>
     </div>

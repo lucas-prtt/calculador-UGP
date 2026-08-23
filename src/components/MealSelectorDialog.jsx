@@ -69,7 +69,7 @@ export default function MealSelectorDialog({ onClose, onSelect }) {
               >
                 <span style={{ color: textColor, fontSize: 16, fontWeight: 600 }}>{item.name}</span>
                 <div style={{ color: secondaryColor, fontSize: 13, marginTop: 2 }}>
-                  {item.portion}g — C:{item.carbs} F:{item.fat} P:{item.protein}
+                  {item.portion}{t('common.gram')} — {t('calculadora.macroC')}:{item.carbs} {t('calculadora.macroF')}:{item.fat} {t('calculadora.macroP')}:{item.protein}
                 </div>
               </button>
             ))

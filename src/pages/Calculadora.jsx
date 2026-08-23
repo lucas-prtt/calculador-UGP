@@ -44,7 +44,7 @@ export default function Calculadora() {
           {advancedCarbsPerUnit ? (
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', justifyContent: 'center', lineHeight: 1.15 }}>
               <span style={{ fontSize: 11, color: secondaryColor }}>{currentTimeLabel}</span>
-              <span style={{ fontSize: 16, fontWeight: 700, color: textColor }}>{currentGramsPerUnit.toFixed(1)} G/U</span>
+              <span style={{ fontSize: 16, fontWeight: 700, color: textColor }}>{currentGramsPerUnit.toFixed(1)} {t('common.gPerUnit')}</span>
             </div>
           ) : (
             <button
@@ -53,10 +53,10 @@ export default function Calculadora() {
               title={t('home.settings')}
               style={{ width: 'auto', padding: '0 6px', fontSize: 20, fontWeight: 700, color: '#208AEF' }}
             >
-              {carbsPerUnit} G/U
+              {carbsPerUnit} {t('common.gPerUnit')}
             </button>
           )}
-          <button className="header-btn" onClick={() => navigate('/')} title="Home">
+          <button className="header-btn" onClick={() => navigate('/')} title={t('common.home')}>
             <Home size={24} color="#208AEF" />
           </button>
         </div>

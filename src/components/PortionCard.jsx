@@ -124,7 +124,7 @@ export default function PortionCard({ portion, onUpdate, onRemove }) {
 
         {portion.isMeal && (
           <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginTop: 4, gap: 4 }}>
-            <span style={{ fontSize: 13, color: textColor }}>g:</span>
+            <span style={{ fontSize: 13, color: textColor }}>{t('common.gram')}:</span>
             <input
               className="input-small"
               style={{ backgroundColor: inputBg, borderColor: inputBorder, color: textColor }}

@@ -10,7 +10,7 @@ import Opciones from './pages/Opciones';
 import ConfigurarPorHora from './pages/ConfigurarPorHora';
 
 function AppRoutes() {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const storage = useStorage();
   const location = useLocation();
 
@@ -25,6 +25,10 @@ function AppRoutes() {
       }
     });
   }, []);
+
+  useEffect(() => {
+    document.title = t('appTitle');
+  }, [t, i18n.language]);
 
   return (
     <Routes location={location} key={location.pathname}>

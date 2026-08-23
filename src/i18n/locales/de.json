@@ -19,8 +19,11 @@
     "importSuccess": "Daten erfolgreich importiert",
     "restoreDefaults": "Standardwerte wiederherstellen",
     "restoreDefaultsConfirm": "Standardwerte wiederherstellen?",
-    "advancedCarbsPerUnit": "Erweiterte Konfiguration der Kohlenhydrate pro Einheit",
+    "advancedCarbsPerUnit": "Erweiterte Konfiguration der Gramm Kohlenhydrate pro Einheit",
     "configureByHour": "Stundenweise konfigurieren",
+    "hoursOffset": "Stundenversatz",
+    "hours": "Stunden",
+    "minutes": "Minuten",
     "dragHint": "Ziehe die Punkte, um die Gramm pro Einheit stundenweise anzupassen.",
     "save": "Speichern"
   },
@@ -29,8 +32,13 @@
     "back": "Zurück",
     "cancel": "Abbrechen",
     "delete": "Löschen",
+    "restore": "Wiederherstellen",
     "confirm": "Bestätigen",
-    "ok": "OK"
+    "ok": "OK",
+    "home": "Start",
+    "gram": "g",
+    "kcal": "kcal",
+    "gPerUnit": "G/U"
   },
   "languages": {
     "en": "English",

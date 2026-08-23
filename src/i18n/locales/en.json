@@ -19,8 +19,11 @@
     "importSuccess": "Data imported successfully",
     "restoreDefaults": "Restore default values",
     "restoreDefaultsConfirm": "Restore default values?",
-    "advancedCarbsPerUnit": "Advanced carbs per unit configuration",
+    "advancedCarbsPerUnit": "Advanced grams of carbs per unit configuration",
     "configureByHour": "Configure by hour",
+    "hoursOffset": "Hour offset",
+    "hours": "Hours",
+    "minutes": "Minutes",
     "dragHint": "Drag the points to adjust grams per unit by time of day.",
     "save": "Save"
   },
@@ -29,8 +32,13 @@
     "back": "Back",
     "cancel": "Cancel",
     "delete": "Delete",
+    "restore": "Restore",
     "confirm": "Confirm",
-    "ok": "OK"
+    "ok": "OK",
+    "home": "Home",
+    "gram": "g",
+    "kcal": "kcal",
+    "gPerUnit": "G/U"
   },
   "languages": {
     "en": "English",

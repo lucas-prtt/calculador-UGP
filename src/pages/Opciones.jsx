@@ -6,16 +6,19 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Home } from 'lucide-react';
 import { useDialog } from '../components/Dialog';
 import ExportImport from '../components/ExportImport';
+import TimeOffsetDialog from '../components/TimeOffsetDialog';
+import { formatOffset } from '../utils/carbsCurve';
 
 export default function Opciones() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { theme, isDark, setTheme } = useTheme();
-  const { carbsPerUnit, caloriesPerUnit, advancedCarbsPerUnit, saveCarbsPerUnit, saveCaloriesPerUnit, saveAdvancedCarbsPerUnit } = useSettings();
+  const { carbsPerUnit, caloriesPerUnit, advancedCarbsPerUnit, hoursOffset, saveCarbsPerUnit, saveCaloriesPerUnit, saveAdvancedCarbsPerUnit, saveHoursOffset } = useSettings();
   const { showConfirm } = useDialog();
 
   const [carbs, setCarbs] = useState(String(carbsPerUnit));
   const [calories, setCalories] = useState(String(caloriesPerUnit));
+  const [offsetVisible, setOffsetVisible] = useState(false);
 
   useEffect(() => {
     setCarbs(String(carbsPerUnit));
@@ -40,7 +43,9 @@ export default function Opciones() {
       setCalories('150');
       saveCarbsPerUnit(15);
       saveCaloriesPerUnit(150);
-    });
+      saveAdvancedCarbsPerUnit(false);
+      saveHoursOffset(0);
+    }, { confirmLabel: t('common.restore') });
   };
 
   const textColor = isDark ? '#FFFFFF' : '#000000';
@@ -60,7 +65,7 @@ export default function Opciones() {
         </div>
         <span className="header-title" style={{ color: textColor }}>{t('settings.title')}</span>
         <div className="header-right">
-          <button className="header-btn" onClick={() => navigate('/')} title="Home">
+          <button className="header-btn" onClick={() => navigate('/')} title={t('common.home')}>
             <Home size={24} color="#208AEF" />
           </button>
         </div>
@@ -128,6 +133,24 @@ export default function Opciones() {
           </button>
         )}
 
+        {advancedCarbsPerUnit && (
+          <div
+            className="card"
+            onClick={() => setOffsetVisible(true)}
+            style={{
+              backgroundColor: cardBg,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: 16,
+              cursor: 'pointer',
+            }}
+          >
+            <span style={{ color: textColor, fontSize: 16, flex: 1 }}>{t('settings.hoursOffset')}</span>
+            <span style={{ color: '#208AEF', fontSize: 16, fontWeight: 600 }}>{formatOffset(hoursOffset)}</span>
+          </div>
+        )}
+
         <div className="card" style={{
           backgroundColor: cardBg,
           display: 'flex',
@@ -156,6 +179,8 @@ export default function Opciones() {
           {t('settings.restoreDefaults')}
         </button>
       </div>
+
+      {offsetVisible && <TimeOffsetDialog onClose={() => setOffsetVisible(false)} />}
     </div>
   );
 }

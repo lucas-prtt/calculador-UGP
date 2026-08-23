@@ -10,7 +10,7 @@ export default function ConfigurarPorHora() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { isDark } = useTheme();
-  const { carbsPerUnit, carbsPerUnitCurve, saveCarbsPerUnitCurve } = useSettings();
+  const { carbsPerUnit, carbsPerUnitCurve, hoursOffset, saveCarbsPerUnitCurve } = useSettings();
 
   const [draft, setDraft] = useState(carbsPerUnitCurve);
 
@@ -33,7 +33,7 @@ export default function ConfigurarPorHora() {
         </div>
         <span className="header-title" style={{ color: textColor }}>{t('settings.configureByHour')}</span>
         <div className="header-right">
-          <button className="header-btn" onClick={() => navigate('/')} title="Home">
+          <button className="header-btn" onClick={() => navigate('/')} title={t('common.home')}>
             <Home size={24} color="#208AEF" />
           </button>
         </div>
@@ -44,7 +44,7 @@ export default function ConfigurarPorHora() {
           {t('settings.dragHint')}
         </div>
         <div style={{ flex: 1, minHeight: 0, overflowX: 'auto', overflowY: 'hidden', WebkitOverflowScrolling: 'touch' }}>
-          <CarbsCurveChart curve={draft} maxValue={carbsPerUnit * 4} onChange={setDraft} />
+          <CarbsCurveChart curve={draft} maxValue={carbsPerUnit * 4} offsetMinutes={hoursOffset} onChange={setDraft} />
         </div>
       </div>
 
