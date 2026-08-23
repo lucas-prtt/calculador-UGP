@@ -30,6 +30,7 @@
     "cap:icons": "npx capacitor-assets generate --android",
     "cap:android": "npx cap open android",
     "cap:ios": "npx cap open ios",
-    "cap:build:android": "npm run build && npx cap sync && npx cap open android"
+    "cap:build:android": "npm run build && npx cap sync && npx cap open android",
+    "build-android-debug": "npm run build && npm run cap:icons && npx cap sync && cd android && gradlew.bat assembleDebug"
   }
 }
