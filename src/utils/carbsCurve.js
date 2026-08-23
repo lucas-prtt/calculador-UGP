@@ -18,7 +18,7 @@ export function clamp(x, min, max) {
 }
 
 export function timeToHours(date) {
-  return date.getHours() + date.getMinutes() / 60 + date.getSeconds() / 3600;
+  return date.getHours() + date.getMinutes() / 60;
 }
 
 export function formatTime(date) {
@@ -68,6 +68,8 @@ export function computeMonotoneSlopes(values, h = 1) {
   return m;
 }
 
+let _curveCache = null;
+
 // Interpolación cúbica monótona (Hermite) del valor a una hora dada (0..24).
 // El segmento de cierre (23:00 -> 24:00/00:00) se interpola de forma lineal
 // para evitar sobrepicos en el salto de medianoche.
@@ -84,7 +86,27 @@ export function curveValueAt(curve, hours) {
   const p1 = curve[j];
 
   if (i === n - 1) {
-    return p0 + u * (p1 - p0);
+    if (_curveCache && _curveCache.closing && _curveCache.h === h && _curveCache.p0 === p0 && _curveCache.p1 === p1) {
+      return _curveCache.value;
+    }
+    const value = p0 + u * (p1 - p0);
+    _curveCache = { closing: true, h, p0, p1, value };
+    return value;
+  }
+
+  const pm1 = curve[(i - 1 + n) % n];
+  const p2 = curve[(i + 2) % n];
+
+  if (
+    _curveCache &&
+    !_curveCache.closing &&
+    _curveCache.h === h &&
+    _curveCache.pm1 === pm1 &&
+    _curveCache.p0 === p0 &&
+    _curveCache.p1 === p1 &&
+    _curveCache.p2 === p2
+  ) {
+    return _curveCache.value;
   }
 
   const m = computeMonotoneSlopes(curve, hh);
@@ -93,5 +115,8 @@ export function curveValueAt(curve, hours) {
   const h10 = t * t * t - 2 * t * t + t;
   const h01 = -2 * t * t * t + 3 * t * t;
   const h11 = t * t * t - t * t;
-  return h00 * p0 + h10 * hh * m[i] + h01 * p1 + h11 * hh * m[j];
+  const value = h00 * p0 + h10 * hh * m[i] + h01 * p1 + h11 * hh * m[j];
+
+  _curveCache = { closing: false, h, pm1, p0, p1, p2, value };
+  return value;
 }

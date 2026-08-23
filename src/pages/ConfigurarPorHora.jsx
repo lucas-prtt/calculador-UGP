@@ -10,9 +10,12 @@ export default function ConfigurarPorHora() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { isDark } = useTheme();
-  const { carbsPerUnit, carbsPerUnitCurve, hoursOffset, saveCarbsPerUnitCurve } = useSettings();
+  const { carbsPerUnit, carbsPerUnitCurve, curveMin, curveMax, hoursOffset, saveCarbsPerUnitCurve } = useSettings();
 
   const [draft, setDraft] = useState(carbsPerUnitCurve);
+
+  const minValue = curveMin != null ? curveMin : 0;
+  const maxValue = curveMax != null ? curveMax : carbsPerUnit * 4;
 
   const textColor = isDark ? '#FFFFFF' : '#000000';
   const bg = isDark ? '#000000' : '#FFFFFF';
@@ -44,7 +47,7 @@ export default function ConfigurarPorHora() {
           {t('settings.dragHint')}
         </div>
         <div style={{ flex: 1, minHeight: 0, overflowX: 'auto', overflowY: 'hidden', WebkitOverflowScrolling: 'touch' }}>
-          <CarbsCurveChart curve={draft} maxValue={carbsPerUnit * 4} offsetMinutes={hoursOffset} onChange={setDraft} />
+          <CarbsCurveChart curve={draft} minValue={minValue} maxValue={maxValue} offsetMinutes={hoursOffset} onChange={setDraft} />
         </div>
       </div>
 

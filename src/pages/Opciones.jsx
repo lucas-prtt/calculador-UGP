@@ -7,18 +7,23 @@ import { ArrowLeft, Home } from 'lucide-react';
 import { useDialog } from '../components/Dialog';
 import ExportImport from '../components/ExportImport';
 import TimeOffsetDialog from '../components/TimeOffsetDialog';
+import CurveRangeDialog from '../components/CurveRangeDialog';
 import { formatOffset } from '../utils/carbsCurve';
 
 export default function Opciones() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { theme, isDark, setTheme } = useTheme();
-  const { carbsPerUnit, caloriesPerUnit, advancedCarbsPerUnit, hoursOffset, saveCarbsPerUnit, saveCaloriesPerUnit, saveAdvancedCarbsPerUnit, saveHoursOffset } = useSettings();
+  const { carbsPerUnit, caloriesPerUnit, advancedCarbsPerUnit, hoursOffset, curveMin, curveMax, saveCarbsPerUnit, saveCaloriesPerUnit, saveAdvancedCarbsPerUnit, saveHoursOffset } = useSettings();
   const { showConfirm } = useDialog();
 
   const [carbs, setCarbs] = useState(String(carbsPerUnit));
   const [calories, setCalories] = useState(String(caloriesPerUnit));
   const [offsetVisible, setOffsetVisible] = useState(false);
+  const [rangeVisible, setRangeVisible] = useState(false);
+
+  const rangeMin = curveMin != null ? curveMin : 0;
+  const rangeMax = curveMax != null ? curveMax : carbsPerUnit * 4;
 
   useEffect(() => {
     setCarbs(String(carbsPerUnit));
@@ -151,6 +156,24 @@ export default function Opciones() {
           </div>
         )}
 
+        {advancedCarbsPerUnit && (
+          <div
+            className="card"
+            onClick={() => setRangeVisible(true)}
+            style={{
+              backgroundColor: cardBg,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: 16,
+              cursor: 'pointer',
+            }}
+          >
+            <span style={{ color: textColor, fontSize: 16, flex: 1 }}>{t('settings.curveRange')}</span>
+            <span style={{ color: '#208AEF', fontSize: 16, fontWeight: 600 }}>{rangeMin} – {rangeMax}</span>
+          </div>
+        )}
+
         <div className="card" style={{
           backgroundColor: cardBg,
           display: 'flex',
@@ -181,6 +204,7 @@ export default function Opciones() {
       </div>
 
       {offsetVisible && <TimeOffsetDialog onClose={() => setOffsetVisible(false)} />}
+      {rangeVisible && <CurveRangeDialog onClose={() => setRangeVisible(false)} />}
     </div>
   );
 }

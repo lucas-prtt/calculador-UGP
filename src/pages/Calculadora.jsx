@@ -9,6 +9,7 @@ import { useDialog } from '../components/Dialog';
 import PortionCard from '../components/PortionCard';
 import AddPortionDialog from '../components/AddPortionDialog';
 import SettingsDialog from '../components/SettingsDialog';
+import TempValueDialog from '../components/TempValueDialog';
 import TotalsBar from '../components/TotalsBar';
 
 export default function Calculadora() {
@@ -20,6 +21,8 @@ export default function Calculadora() {
   const { showConfirm } = useDialog();
   const [dialogVisible, setDialogVisible] = useState(false);
   const [settingsVisible, setSettingsVisible] = useState(false);
+  const [tempValue, setTempValue] = useState(null);
+  const [tempDialogVisible, setTempDialogVisible] = useState(false);
 
   const textColor = isDark ? '#FFFFFF' : '#000000';
   const secondaryColor = '#8E8E93';
@@ -42,10 +45,26 @@ export default function Calculadora() {
         <span className="header-title" style={{ color: textColor }}>{t('calculadora.title')}</span>
         <div className="header-right" style={{ width: 'auto', minWidth: 96, gap: 8 }}>
           {advancedCarbsPerUnit ? (
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', justifyContent: 'center', lineHeight: 1.15 }}>
-              <span style={{ fontSize: 11, color: secondaryColor }}>{currentTimeLabel}</span>
-              <span style={{ fontSize: 16, fontWeight: 700, color: textColor }}>{currentGramsPerUnit.toFixed(1)} {t('common.gPerUnit')}</span>
-            </div>
+            tempValue != null ? (
+              <button
+                className="header-btn"
+                onClick={() => setTempValue(null)}
+                title={t('calculadora.tempValue')}
+                style={{ width: 'auto', height: 'auto', padding: '0 6px', fontSize: 20, fontWeight: 700, color: '#208AEF' }}
+              >
+                {tempValue} {t('common.gPerUnit')}
+              </button>
+            ) : (
+              <button
+                className="header-btn"
+                onClick={() => setTempDialogVisible(true)}
+                title={t('calculadora.tempValue')}
+                style={{ width: 'auto', height: 'auto', padding: '0 6px', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', justifyContent: 'center', lineHeight: 1.15 }}
+              >
+                <span style={{ fontSize: 11, color: secondaryColor }}>{currentTimeLabel}</span>
+                <span style={{ fontSize: 16, fontWeight: 700, color: textColor }}>{currentGramsPerUnit.toFixed(1)} {t('common.gPerUnit')}</span>
+              </button>
+            )
           ) : (
             <button
               className="header-btn"
@@ -76,7 +95,7 @@ export default function Calculadora() {
 
       {portions.length > 0 && (
         <div style={{ padding: '12px 16px 0', flexShrink: 0 }}>
-          <TotalsBar portions={portions} />
+          <TotalsBar portions={portions} overrideValue={tempValue} />
         </div>
       )}
 
@@ -101,6 +120,14 @@ export default function Calculadora() {
 
       {settingsVisible && !advancedCarbsPerUnit && (
         <SettingsDialog onClose={() => setSettingsVisible(false)} />
+      )}
+
+      {tempDialogVisible && (
+        <TempValueDialog
+          initial={currentGramsPerUnit}
+          onClose={() => setTempDialogVisible(false)}
+          onConfirm={(v) => setTempValue(v)}
+        />
       )}
     </div>
   );

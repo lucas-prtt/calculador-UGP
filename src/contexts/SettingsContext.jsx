@@ -11,6 +11,8 @@ export function SettingsProvider({ children }) {
   const [advancedCarbsPerUnit, setAdvancedCarbsPerUnitState] = useState(false);
   const [carbsPerUnitCurve, setCarbsPerUnitCurveState] = useState(null);
   const [hoursOffset, setHoursOffsetState] = useState(0);
+  const [curveMin, setCurveMinState] = useState(null);
+  const [curveMax, setCurveMaxState] = useState(null);
   const [now, setNow] = useState(() => new Date());
 
   useEffect(() => {
@@ -21,10 +23,12 @@ export function SettingsProvider({ children }) {
       if (Array.isArray(v) && v.length === SLOTS) setCarbsPerUnitCurveState(v);
     });
     storage.get('hoursOffset').then((v) => { if (v !== null) setHoursOffsetState(v); });
+    storage.get('curveMin').then((v) => { if (v !== null) setCurveMinState(v); });
+    storage.get('curveMax').then((v) => { if (v !== null) setCurveMaxState(v); });
   }, []);
 
   useEffect(() => {
-    const id = setInterval(() => setNow(new Date()), 30000);
+    const id = setInterval(() => setNow(new Date()), 1000);
     return () => clearInterval(id);
   }, []);
 
@@ -36,6 +40,10 @@ export function SettingsProvider({ children }) {
     storage.set('carbsPerUnit', v);
     setCarbsPerUnitCurveState(null);
     storage.remove('carbsPerUnitCurve');
+    setCurveMinState(null);
+    setCurveMaxState(null);
+    storage.remove('curveMin');
+    storage.remove('curveMax');
   }, []);
 
   const saveCaloriesPerUnit = useCallback((v) => {
@@ -51,6 +59,13 @@ export function SettingsProvider({ children }) {
   const saveHoursOffset = useCallback((v) => {
     setHoursOffsetState(v);
     storage.set('hoursOffset', v);
+  }, []);
+
+  const saveCurveRange = useCallback((min, max) => {
+    setCurveMinState(min);
+    setCurveMaxState(max);
+    if (min == null) storage.remove('curveMin'); else storage.set('curveMin', min);
+    if (max == null) storage.remove('curveMax'); else storage.set('curveMax', max);
   }, []);
 
   const saveCarbsPerUnitCurve = useCallback((arr) => {
@@ -79,6 +94,8 @@ export function SettingsProvider({ children }) {
         advancedCarbsPerUnit,
         carbsPerUnitCurve: curve,
         hoursOffset,
+        curveMin,
+        curveMax,
         currentGramsPerUnit,
         currentTimeLabel,
         setCarbsPerUnit,
@@ -88,6 +105,7 @@ export function SettingsProvider({ children }) {
         saveAdvancedCarbsPerUnit,
         saveCarbsPerUnitCurve,
         saveHoursOffset,
+        saveCurveRange,
       }}
     >
       {children}

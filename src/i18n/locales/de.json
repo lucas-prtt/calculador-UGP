@@ -24,6 +24,9 @@
     "hoursOffset": "Stundenversatz",
     "hours": "Stunden",
     "minutes": "Minuten",
+    "curveRange": "Diagrammbereich",
+    "minValue": "Minimum",
+    "maxValue": "Maximum",
     "dragHint": "Ziehe die Punkte, um die Gramm pro Einheit stundenweise anzupassen.",
     "save": "Speichern"
   },
@@ -65,6 +68,7 @@
     "insulinUnits": "Insulin-Einheiten (KH)",
     "ugp": "FPE",
     "portionName": "Portion",
+    "tempValue": "Temporärer Wert",
     "registerAsMeal": "Als Mahlzeit speichern",
     "gramsForMeal": "Wie viele Gramm hat diese Mahlzeit?",
     "deletePortion": "Portion löschen",

@@ -24,6 +24,9 @@
     "hoursOffset": "Hour offset",
     "hours": "Hours",
     "minutes": "Minutes",
+    "curveRange": "Chart range",
+    "minValue": "Minimum",
+    "maxValue": "Maximum",
     "dragHint": "Drag the points to adjust grams per unit by time of day.",
     "save": "Save"
   },
@@ -65,6 +68,7 @@
     "insulinUnits": "Carbs insulin units",
     "ugp": "FPU",
     "portionName": "Portion",
+    "tempValue": "Temporary value",
     "registerAsMeal": "Save as meal",
     "gramsForMeal": "How many grams is this meal?",
     "deletePortion": "Delete portion",

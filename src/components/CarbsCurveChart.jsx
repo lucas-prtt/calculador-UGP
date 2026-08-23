@@ -7,7 +7,7 @@ const STEP_PX = 48;
 const M = { top: 22, right: 20, bottom: 34, left: 44 };
 const MIN_HEIGHT = 320;
 
-export default function CarbsCurveChart({ curve, maxValue, offsetMinutes = 0, onChange }) {
+export default function CarbsCurveChart({ curve, minValue = 0, maxValue = 60, offsetMinutes = 0, onChange }) {
   const { t } = useTranslation();
   const { isDark } = useTheme();
   const wrapRef = useRef(null);
@@ -43,13 +43,13 @@ export default function CarbsCurveChart({ curve, maxValue, offsetMinutes = 0, on
   const n = curve.length;
   const W = n * STEP_PX + M.left + M.right;
 
-  const safeMax = maxValue > 0 ? maxValue : 1;
+  const span = maxValue - minValue > 0 ? maxValue - minValue : 1;
   const plotW = W - M.left - M.right;
   const plotH = height - M.top - M.bottom;
 
   const xForHours = (hours) => M.left + hours * STEP_PX;
-  const yForValue = (v) => M.top + (1 - clamp(v, 0, safeMax) / safeMax) * plotH;
-  const valueForY = (y) => clamp((1 - (y - M.top) / plotH) * safeMax, 0, safeMax);
+  const yForValue = (v) => M.top + (1 - (clamp(v, minValue, maxValue) - minValue) / span) * plotH;
+  const valueForY = (y) => clamp(minValue + (1 - (y - M.top) / plotH) * span, minValue, maxValue);
 
   const textColor = isDark ? '#FFFFFF' : '#000000';
   const secondaryColor = '#8E8E93';
@@ -87,7 +87,7 @@ export default function CarbsCurveChart({ curve, maxValue, offsetMinutes = 0, on
     const svg = svgRef.current;
     const rect = svg.getBoundingClientRect();
     const y = ((clientY - rect.top) / rect.height) * height;
-    const v = snap05(valueForY(y));
+    const v = clamp(snap05(valueForY(y)), minValue, maxValue);
     onChange(curveRef.current.map((val, i) => (i === index ? v : val)));
   };
 
@@ -147,7 +147,8 @@ export default function CarbsCurveChart({ curve, maxValue, offsetMinutes = 0, on
   const xTicks = Array.from({ length: 25 }, (_, i) => i);
   const yTicks = (() => {
     const arr = [];
-    for (let v = 0; v <= safeMax + 1e-6; v += 5) arr.push(v);
+    const start = Math.ceil(minValue / 5) * 5;
+    for (let v = start; v <= maxValue + 1e-6; v += 5) arr.push(v);
     return arr;
   })();
 
