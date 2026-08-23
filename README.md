@@ -2,6 +2,8 @@
 
 A cross-platform app for calculating insulin units and fat-protein units (FPU/UGP/FPE) from meal macronutrients. Built with React, Vite, and Capacitor.
 
+Web version available [here](https://calculadora-ugp.netlify.app/)
+
 ## Features
 
 - Calculate carbs/fat/protein totals and derived insulin + UGP values
