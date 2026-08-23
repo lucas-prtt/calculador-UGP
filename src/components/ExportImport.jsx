@@ -15,7 +15,7 @@ export default function ExportImport() {
   const storage = useStorage();
   const { meals, replaceMeals } = useMeals();
   const { setTheme, isDark } = useTheme();
-  const { saveCarbsPerUnit, saveCaloriesPerUnit, saveAdvancedCarbsPerUnit, saveHoursOffset, saveCarbsPerUnitCurve, saveCurveRange } = useSettings();
+  const { saveCarbsPerUnit, saveCaloriesPerUnit, saveAdvancedCarbsPerUnit, saveHoursOffset, saveCarbsPerUnitCurve, saveCurveRange, saveValueAppearance } = useSettings();
   const { showAlert } = useDialog();
 
   const cardBg = isDark ? '#1C1C1E' : '#F2F2F7';
@@ -30,6 +30,7 @@ export default function ExportImport() {
     const hoursOffset = await storage.get('hoursOffset');
     const curveMin = await storage.get('curveMin');
     const curveMax = await storage.get('curveMax');
+    const valueAppearance = await storage.get('valueAppearance');
 
     return {
       version: 1,
@@ -44,6 +45,7 @@ export default function ExportImport() {
         hoursOffset: hoursOffset ?? 0,
         curveMin: curveMin ?? null,
         curveMax: curveMax ?? null,
+        valueAppearance: valueAppearance ?? 'large',
       },
       meals,
     };
@@ -63,6 +65,7 @@ export default function ExportImport() {
       if (s.hoursOffset !== undefined) saveHoursOffset(s.hoursOffset);
       if (Array.isArray(s.carbsPerUnitCurve)) saveCarbsPerUnitCurve(s.carbsPerUnitCurve);
       if (s.curveMin !== undefined && s.curveMax !== undefined) saveCurveRange(s.curveMin, s.curveMax);
+      if (s.valueAppearance !== undefined) saveValueAppearance(s.valueAppearance);
     }
 
     if (Array.isArray(data.meals)) {

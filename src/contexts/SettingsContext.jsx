@@ -13,6 +13,7 @@ export function SettingsProvider({ children }) {
   const [hoursOffset, setHoursOffsetState] = useState(0);
   const [curveMin, setCurveMinState] = useState(null);
   const [curveMax, setCurveMaxState] = useState(null);
+  const [valueAppearance, setValueAppearanceState] = useState('large');
   const [now, setNow] = useState(() => new Date());
 
   useEffect(() => {
@@ -25,6 +26,7 @@ export function SettingsProvider({ children }) {
     storage.get('hoursOffset').then((v) => { if (v !== null) setHoursOffsetState(v); });
     storage.get('curveMin').then((v) => { if (v !== null) setCurveMinState(v); });
     storage.get('curveMax').then((v) => { if (v !== null) setCurveMaxState(v); });
+    storage.get('valueAppearance').then((v) => { if (v !== null) setValueAppearanceState(v); });
   }, []);
 
   useEffect(() => {
@@ -68,6 +70,11 @@ export function SettingsProvider({ children }) {
     if (max == null) storage.remove('curveMax'); else storage.set('curveMax', max);
   }, []);
 
+  const saveValueAppearance = useCallback((v) => {
+    setValueAppearanceState(v);
+    storage.set('valueAppearance', v);
+  }, []);
+
   const saveCarbsPerUnitCurve = useCallback((arr) => {
     const sanitized = Array.isArray(arr) && arr.length === SLOTS ? arr.slice() : defaultCurve(carbsPerUnit);
     setCarbsPerUnitCurveState(sanitized);
@@ -96,6 +103,7 @@ export function SettingsProvider({ children }) {
         hoursOffset,
         curveMin,
         curveMax,
+        valueAppearance,
         currentGramsPerUnit,
         currentTimeLabel,
         setCarbsPerUnit,
@@ -106,6 +114,7 @@ export function SettingsProvider({ children }) {
         saveCarbsPerUnitCurve,
         saveHoursOffset,
         saveCurveRange,
+        saveValueAppearance,
       }}
     >
       {children}

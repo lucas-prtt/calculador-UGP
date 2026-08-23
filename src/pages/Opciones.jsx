@@ -14,7 +14,7 @@ export default function Opciones() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { theme, isDark, setTheme } = useTheme();
-  const { carbsPerUnit, caloriesPerUnit, advancedCarbsPerUnit, hoursOffset, curveMin, curveMax, saveCarbsPerUnit, saveCaloriesPerUnit, saveAdvancedCarbsPerUnit, saveHoursOffset } = useSettings();
+  const { carbsPerUnit, caloriesPerUnit, advancedCarbsPerUnit, hoursOffset, curveMin, curveMax, valueAppearance, saveCarbsPerUnit, saveCaloriesPerUnit, saveAdvancedCarbsPerUnit, saveHoursOffset, saveValueAppearance } = useSettings();
   const { showConfirm } = useDialog();
 
   const [carbs, setCarbs] = useState(String(carbsPerUnit));
@@ -50,6 +50,7 @@ export default function Opciones() {
       saveCaloriesPerUnit(150);
       saveAdvancedCarbsPerUnit(false);
       saveHoursOffset(0);
+      saveValueAppearance('large');
     }, { confirmLabel: t('common.restore') });
   };
 
@@ -190,6 +191,60 @@ export default function Opciones() {
             onChange={(e) => saveCalories(e.target.value)}
             placeholder="150"
           />
+        </div>
+
+        <div className="card" style={{ backgroundColor: cardBg, padding: 16 }}>
+          <span style={{ color: textColor, fontSize: 16, display: 'block', marginBottom: 12 }}>{t('settings.valueAppearance')}</span>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <button
+              onClick={() => saveValueAppearance('large')}
+              style={{
+                flex: 1,
+                padding: '10px 8px',
+                borderRadius: 8,
+                border: `1px solid ${valueAppearance === 'large' ? '#208AEF' : inputBorder}`,
+                backgroundColor: valueAppearance === 'large' ? '#208AEF' : inputBg,
+                color: valueAppearance === 'large' ? '#FFFFFF' : textColor,
+                fontSize: 14,
+                fontWeight: 600,
+                cursor: 'pointer',
+              }}
+            >
+              {t('settings.appearanceLarge')}
+            </button>
+            <button
+              onClick={() => saveValueAppearance('medium')}
+              style={{
+                flex: 1,
+                padding: '10px 8px',
+                borderRadius: 8,
+                border: `1px solid ${valueAppearance === 'medium' ? '#208AEF' : inputBorder}`,
+                backgroundColor: valueAppearance === 'medium' ? '#208AEF' : inputBg,
+                color: valueAppearance === 'medium' ? '#FFFFFF' : textColor,
+                fontSize: 14,
+                fontWeight: 600,
+                cursor: 'pointer',
+              }}
+            >
+              {t('settings.appearanceMedium')}
+            </button>
+            <button
+              onClick={() => saveValueAppearance('small')}
+              style={{
+                flex: 1,
+                padding: '10px 8px',
+                borderRadius: 8,
+                border: `1px solid ${valueAppearance === 'small' ? '#208AEF' : inputBorder}`,
+                backgroundColor: valueAppearance === 'small' ? '#208AEF' : inputBg,
+                color: valueAppearance === 'small' ? '#FFFFFF' : textColor,
+                fontSize: 14,
+                fontWeight: 600,
+                cursor: 'pointer',
+              }}
+            >
+              {t('settings.appearanceSmall')}
+            </button>
+          </div>
         </div>
 
         <ExportImport />
