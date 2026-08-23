@@ -6,6 +6,7 @@ import i18n from './i18n';
 import { StorageProvider } from './storage/StorageContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { MealsProvider } from './contexts/MealsContext';
+import { CombosProvider } from './contexts/CombosContext';
 import { CalculateProvider } from './contexts/CalculateContext';
 import { SettingsProvider } from './contexts/SettingsContext';
 import { DialogProvider } from './components/Dialog';
@@ -20,11 +21,13 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <SettingsProvider>
             <DialogProvider>
               <MealsProvider>
-                <CalculateProvider>
-                  <HashRouter>
-                    <App />
-                  </HashRouter>
-                </CalculateProvider>
+                <CombosProvider>
+                  <CalculateProvider>
+                    <HashRouter>
+                      <App />
+                    </HashRouter>
+                  </CalculateProvider>
+                </CombosProvider>
               </MealsProvider>
             </DialogProvider>
           </SettingsProvider>

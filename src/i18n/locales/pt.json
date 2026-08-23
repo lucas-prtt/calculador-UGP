@@ -3,7 +3,8 @@
   "home": {
     "calculate": "Calcular UGP",
     "settings": "Opções",
-    "registeredMeals": "Refeições registradas"
+    "registeredMeals": "Alimentos registrados",
+    "combos": "Refeições registradas"
   },
   "settings": {
     "title": "Opções",
@@ -27,6 +28,7 @@
     "curveRange": "Faixa do gráfico",
     "minValue": "Mínimo",
     "maxValue": "Máximo",
+    "curvePoints": "Precisão de ajuste",
     "valueAppearance": "Aparência dos valores calculados",
     "appearanceLarge": "Grande",
     "appearanceMedium": "Médio",
@@ -59,9 +61,11 @@
     "deleteAll": "Excluir todas",
     "deleteAllConfirm": "Excluir todas as porções?",
     "emptyPortion": "Porção vazia",
-    "fromMeal": "De refeição",
-    "searchMeal": "Buscar refeição...",
-    "selectMeal": "Selecionar uma refeição",
+    "fromMeal": "De alimento",
+    "fromCombo": "De refeição",
+    "searchMeal": "Buscar alimento...",
+    "selectMeal": "Selecionar um alimento",
+    "selectCombo": "Selecionar uma refeição",
     "gramsConsumed": "Gramas consumidas",
     "totalCarbs": "Carboidratos totais",
     "totalFat": "Gorduras totais",
@@ -81,8 +85,8 @@
     "fatCaloriesShort": "kcal gord.",
     "proteinCaloriesShort": "kcal prot.",
     "insulinUnitsShort": "Insulina",
-    "registerAsMeal": "Salvar como refeição",
-    "gramsForMeal": "A quantas gramas corresponde esta refeição?",
+    "registerAsMeal": "Salvar como alimento",
+    "gramsForMeal": "A quantas gramas corresponde este alimento?",
     "deletePortion": "Excluir porção",
     "deletePortionConfirm": "Excluir esta porção?",
     "macroC": "C",
@@ -90,17 +94,28 @@
     "macroP": "P"
   },
   "meals": {
-    "title": "Refeições registradas",
-    "addMeal": "Adicionar refeição",
-    "editMeal": "Editar refeição",
-    "deleteMeal": "Excluir refeição",
-    "deleteMealConfirm": "Excluir esta refeição?",
+    "title": "Alimentos registrados",
+    "addMeal": "Adicionar alimento",
+    "editMeal": "Editar alimento",
+    "deleteMeal": "Excluir alimento",
+    "deleteMealConfirm": "Excluir este alimento?",
     "name": "Nome",
     "portion": "Porção (g)",
     "carbs": "Carboidratos (g)",
     "fat": "Gorduras (g)",
     "protein": "Proteínas (g)",
     "save": "Salvar",
-    "noMeals": "Nenhuma refeição registrada"
+    "noMeals": "Nenhum alimento registrado"
+  },
+  "combos": {
+    "title": "Refeições registradas",
+    "addCombo": "Adicionar refeição",
+    "editCombo": "Editar refeição",
+    "deleteCombo": "Excluir refeição",
+    "deleteComboConfirm": "Excluir esta refeição?",
+    "noCombos": "Nenhuma refeição registrada",
+    "name": "Nome",
+    "selectMeals": "Selecionar alimentos",
+    "mealCount": "{{count}} alimentos"
   }
 }

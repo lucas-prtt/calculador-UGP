@@ -3,7 +3,8 @@
   "home": {
     "calculate": "Calcular UGP",
     "settings": "Opciones",
-    "registeredMeals": "Comidas registradas"
+    "registeredMeals": "Alimentos registrados",
+    "combos": "Comidas registradas"
   },
   "settings": {
     "title": "Opciones",
@@ -18,7 +19,7 @@
     "importError": "Error al importar",
     "importSuccess": "Datos importados correctamente",
     "restoreDefaults": "Restaurar valores por defecto",
-    "restoreDefaultsConfirm": "\u00bfRestaurar valores por defecto?",
+    "restoreDefaultsConfirm": "¿Restaurar valores por defecto?",
     "advancedCarbsPerUnit": "Configuración avanzada de gramos de carbohidratos por unidad",
     "configureByHour": "Configurar por hora",
     "hoursOffset": "Desfase horario",
@@ -27,6 +28,7 @@
     "curveRange": "Rango del gráfico",
     "minValue": "Mínimo",
     "maxValue": "Máximo",
+    "curvePoints": "Precisión de ajuste",
     "valueAppearance": "Aspecto de valores calculados",
     "appearanceLarge": "Grande",
     "appearanceMedium": "Mediano",
@@ -59,9 +61,11 @@
     "deleteAll": "Eliminar todas",
     "deleteAllConfirm": "Eliminar todas las porciones?",
     "emptyPortion": "Porción vacía",
-    "fromMeal": "Desde comida",
-    "searchMeal": "Buscar comida...",
-    "selectMeal": "Seleccionar una comida",
+    "fromMeal": "Desde alimento",
+    "fromCombo": "Desde comida",
+    "searchMeal": "Buscar alimento...",
+    "selectMeal": "Seleccionar un alimento",
+    "selectCombo": "Seleccionar una comida",
     "gramsConsumed": "Gramos consumidos",
     "totalCarbs": "Carbohidratos totales",
     "totalFat": "Grasas totales",
@@ -81,8 +85,8 @@
     "fatCaloriesShort": "kcal grasas",
     "proteinCaloriesShort": "kcal prot.",
     "insulinUnitsShort": "Insulina",
-    "registerAsMeal": "Guardar como comida",
-    "gramsForMeal": "A cuantos gramos corresponde esta comida?",
+    "registerAsMeal": "Guardar como alimento",
+    "gramsForMeal": "¿A cuántos gramos corresponde este alimento?",
     "deletePortion": "Eliminar porción",
     "deletePortionConfirm": "Eliminar esta porción?",
     "macroC": "C",
@@ -90,17 +94,28 @@
     "macroP": "P"
   },
   "meals": {
-    "title": "Comidas registradas",
-    "addMeal": "Agregar comida",
-    "editMeal": "Editar comida",
-    "deleteMeal": "Eliminar comida",
-    "deleteMealConfirm": "Eliminar esta comida?",
+    "title": "Alimentos registrados",
+    "addMeal": "Agregar alimento",
+    "editMeal": "Editar alimento",
+    "deleteMeal": "Eliminar alimento",
+    "deleteMealConfirm": "Eliminar este alimento?",
     "name": "Nombre",
     "portion": "Porción (g)",
     "carbs": "Carbohidratos (g)",
     "fat": "Grasas (g)",
     "protein": "Proteínas (g)",
     "save": "Guardar",
-    "noMeals": "No hay comidas registradas"
+    "noMeals": "No hay alimentos registrados"
+  },
+  "combos": {
+    "title": "Comidas registradas",
+    "addCombo": "Agregar comida",
+    "editCombo": "Editar comida",
+    "deleteCombo": "Eliminar comida",
+    "deleteComboConfirm": "Eliminar esta comida?",
+    "noCombos": "No hay comidas registradas",
+    "name": "Nombre",
+    "selectMeals": "Seleccionar alimentos",
+    "mealCount": "{{count}} alimentos"
   }
 }

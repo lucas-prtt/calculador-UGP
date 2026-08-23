@@ -8,19 +8,21 @@ import { useDialog } from '../components/Dialog';
 import ExportImport from '../components/ExportImport';
 import TimeOffsetDialog from '../components/TimeOffsetDialog';
 import CurveRangeDialog from '../components/CurveRangeDialog';
+import CurvePointsDialog from '../components/CurvePointsDialog';
 import { formatOffset } from '../utils/carbsCurve';
 
 export default function Opciones() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { theme, isDark, setTheme } = useTheme();
-  const { carbsPerUnit, caloriesPerUnit, advancedCarbsPerUnit, hoursOffset, curveMin, curveMax, valueAppearance, saveCarbsPerUnit, saveCaloriesPerUnit, saveAdvancedCarbsPerUnit, saveHoursOffset, saveValueAppearance } = useSettings();
+  const { isDark, setTheme } = useTheme();
+  const { carbsPerUnit, caloriesPerUnit, advancedCarbsPerUnit, hoursOffset, curveMin, curveMax, valueAppearance, curvePoints, saveCarbsPerUnit, saveCaloriesPerUnit, saveAdvancedCarbsPerUnit, saveHoursOffset, saveValueAppearance, saveCurvePoints } = useSettings();
   const { showConfirm } = useDialog();
 
   const [carbs, setCarbs] = useState(String(carbsPerUnit));
   const [calories, setCalories] = useState(String(caloriesPerUnit));
   const [offsetVisible, setOffsetVisible] = useState(false);
   const [rangeVisible, setRangeVisible] = useState(false);
+  const [pointsVisible, setPointsVisible] = useState(false);
 
   const rangeMin = curveMin != null ? curveMin : 0;
   const rangeMax = curveMax != null ? curveMax : carbsPerUnit * 4;
@@ -51,6 +53,7 @@ export default function Opciones() {
       saveAdvancedCarbsPerUnit(false);
       saveHoursOffset(0);
       saveValueAppearance('large');
+      saveCurvePoints(24);
     }, { confirmLabel: t('common.restore') });
   };
 
@@ -89,7 +92,7 @@ export default function Opciones() {
           <label className="toggle-switch">
             <input
               type="checkbox"
-              checked={theme === 'dark'}
+              checked={isDark}
               onChange={(e) => setTheme(e.target.checked ? 'dark' : 'light')}
             />
             <span className="toggle-slider" />
@@ -134,44 +137,65 @@ export default function Opciones() {
         </div>
 
         {advancedCarbsPerUnit && (
-          <button className="btn-primary" onClick={() => navigate('/configurar-por-hora')}>
-            {t('settings.configureByHour')}
-          </button>
-        )}
+          <div style={{
+            border: `1px solid ${inputBorder}`,
+            borderRadius: 12,
+            padding: 12,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 12,
+          }}>
+            <button className="btn-primary" onClick={() => navigate('/configurar-por-hora')}>
+              {t('settings.configureByHour')}
+            </button>
 
-        {advancedCarbsPerUnit && (
-          <div
-            className="card"
-            onClick={() => setOffsetVisible(true)}
-            style={{
-              backgroundColor: cardBg,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: 16,
-              cursor: 'pointer',
-            }}
-          >
-            <span style={{ color: textColor, fontSize: 16, flex: 1 }}>{t('settings.hoursOffset')}</span>
-            <span style={{ color: '#208AEF', fontSize: 16, fontWeight: 600 }}>{formatOffset(hoursOffset)}</span>
-          </div>
-        )}
+            <div
+              className="card"
+              onClick={() => setOffsetVisible(true)}
+              style={{
+                backgroundColor: cardBg,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: 16,
+                cursor: 'pointer',
+              }}
+            >
+              <span style={{ color: textColor, fontSize: 16, flex: 1 }}>{t('settings.hoursOffset')}</span>
+              <span style={{ color: '#208AEF', fontSize: 16, fontWeight: 600 }}>{formatOffset(hoursOffset)}</span>
+            </div>
 
-        {advancedCarbsPerUnit && (
-          <div
-            className="card"
-            onClick={() => setRangeVisible(true)}
-            style={{
-              backgroundColor: cardBg,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: 16,
-              cursor: 'pointer',
-            }}
-          >
-            <span style={{ color: textColor, fontSize: 16, flex: 1 }}>{t('settings.curveRange')}</span>
-            <span style={{ color: '#208AEF', fontSize: 16, fontWeight: 600 }}>{rangeMin} – {rangeMax}</span>
+            <div
+              className="card"
+              onClick={() => setRangeVisible(true)}
+              style={{
+                backgroundColor: cardBg,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: 16,
+                cursor: 'pointer',
+              }}
+            >
+              <span style={{ color: textColor, fontSize: 16, flex: 1 }}>{t('settings.curveRange')}</span>
+              <span style={{ color: '#208AEF', fontSize: 16, fontWeight: 600 }}>{rangeMin} – {rangeMax}</span>
+            </div>
+
+            <div
+              className="card"
+              onClick={() => setPointsVisible(true)}
+              style={{
+                backgroundColor: cardBg,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: 16,
+                cursor: 'pointer',
+              }}
+            >
+              <span style={{ color: textColor, fontSize: 16, flex: 1 }}>{t('settings.curvePoints')}</span>
+              <span style={{ color: '#208AEF', fontSize: 16, fontWeight: 600 }}>{curvePoints}</span>
+            </div>
           </div>
         )}
 
@@ -260,6 +284,7 @@ export default function Opciones() {
 
       {offsetVisible && <TimeOffsetDialog onClose={() => setOffsetVisible(false)} />}
       {rangeVisible && <CurveRangeDialog onClose={() => setRangeVisible(false)} />}
+      {pointsVisible && <CurvePointsDialog onClose={() => setPointsVisible(false)} />}
     </div>
   );
 }

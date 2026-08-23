@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '../contexts/ThemeContext';
 import { useStorage } from '../storage/StorageContext';
 import { useMeals } from '../contexts/MealsContext';
+import { useCombos } from '../contexts/CombosContext';
 import { useSettings } from '../contexts/SettingsContext';
 import { useDialog } from './Dialog';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
@@ -14,8 +15,9 @@ export default function ExportImport() {
   const { t } = useTranslation();
   const storage = useStorage();
   const { meals, replaceMeals } = useMeals();
+  const { combos, replaceCombos } = useCombos();
   const { setTheme, isDark } = useTheme();
-  const { saveCarbsPerUnit, saveCaloriesPerUnit, saveAdvancedCarbsPerUnit, saveHoursOffset, saveCarbsPerUnitCurve, saveCurveRange, saveValueAppearance } = useSettings();
+  const { saveCarbsPerUnit, saveCaloriesPerUnit, saveAdvancedCarbsPerUnit, saveHoursOffset, saveCarbsPerUnitCurve, saveCurveRange, saveValueAppearance, saveCurvePoints } = useSettings();
   const { showAlert } = useDialog();
 
   const cardBg = isDark ? '#1C1C1E' : '#F2F2F7';
@@ -31,6 +33,7 @@ export default function ExportImport() {
     const curveMin = await storage.get('curveMin');
     const curveMax = await storage.get('curveMax');
     const valueAppearance = await storage.get('valueAppearance');
+    const curvePoints = await storage.get('curvePoints');
 
     return {
       version: 1,
@@ -46,8 +49,10 @@ export default function ExportImport() {
         curveMin: curveMin ?? null,
         curveMax: curveMax ?? null,
         valueAppearance: valueAppearance ?? 'large',
+        curvePoints: curvePoints ?? 24,
       },
       meals,
+      combos,
     };
   };
 
@@ -66,10 +71,15 @@ export default function ExportImport() {
       if (Array.isArray(s.carbsPerUnitCurve)) saveCarbsPerUnitCurve(s.carbsPerUnitCurve);
       if (s.curveMin !== undefined && s.curveMax !== undefined) saveCurveRange(s.curveMin, s.curveMax);
       if (s.valueAppearance !== undefined) saveValueAppearance(s.valueAppearance);
+      if (s.curvePoints !== undefined) saveCurvePoints(s.curvePoints);
     }
 
     if (Array.isArray(data.meals)) {
       replaceMeals(data.meals);
+    }
+
+    if (Array.isArray(data.combos)) {
+      replaceCombos(data.combos);
     }
   };
 

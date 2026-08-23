@@ -72,6 +72,23 @@ export default function Home() {
           {t('home.registeredMeals')}
         </button>
         <button
+          onClick={() => navigate('/combos')}
+          style={{
+            backgroundColor: buttonBg,
+            color: textColor,
+            border: 'none',
+            width: '100%',
+            padding: '18px',
+            borderRadius: 12,
+            fontSize: 18,
+            fontWeight: 600,
+            cursor: 'pointer',
+            textAlign: 'center',
+          }}
+        >
+          {t('home.combos')}
+        </button>
+        <button
           onClick={() => navigate('/opciones')}
           style={{
             backgroundColor: buttonBg,

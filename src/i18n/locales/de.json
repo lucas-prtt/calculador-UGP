@@ -3,7 +3,8 @@
   "home": {
     "calculate": "FPE berechnen",
     "settings": "Einstellungen",
-    "registeredMeals": "Registrierte Mahlzeiten"
+    "registeredMeals": "Registrierte Lebensmittel",
+    "combos": "Registrierte Mahlzeiten"
   },
   "settings": {
     "title": "Einstellungen",
@@ -27,6 +28,7 @@
     "curveRange": "Diagrammbereich",
     "minValue": "Minimum",
     "maxValue": "Maximum",
+    "curvePoints": "Anpassungspräzision",
     "valueAppearance": "Darstellung der Werte",
     "appearanceLarge": "Groß",
     "appearanceMedium": "Mittel",
@@ -59,9 +61,11 @@
     "deleteAll": "Alle löschen",
     "deleteAllConfirm": "Alle Portionen löschen?",
     "emptyPortion": "Leere Portion",
-    "fromMeal": "Aus Mahlzeit",
-    "searchMeal": "Mahlzeit suchen...",
-    "selectMeal": "Mahlzeit auswählen",
+    "fromMeal": "Aus Lebensmittel",
+    "fromCombo": "Aus Mahlzeit",
+    "searchMeal": "Lebensmittel suchen...",
+    "selectMeal": "Lebensmittel auswählen",
+    "selectCombo": "Mahlzeit auswählen",
     "gramsConsumed": "Gramm verzehrt",
     "totalCarbs": "Kohlenhydrate gesamt",
     "totalFat": "Fett gesamt",
@@ -81,8 +85,8 @@
     "fatCaloriesShort": "kcal Fett",
     "proteinCaloriesShort": "kcal Protein",
     "insulinUnitsShort": "Insulin",
-    "registerAsMeal": "Als Mahlzeit speichern",
-    "gramsForMeal": "Wie viele Gramm hat diese Mahlzeit?",
+    "registerAsMeal": "Als Lebensmittel speichern",
+    "gramsForMeal": "Wie viele Gramm hat dieses Lebensmittel?",
     "deletePortion": "Portion löschen",
     "deletePortionConfirm": "Diese Portion löschen?",
     "macroC": "K",
@@ -90,17 +94,28 @@
     "macroP": "P"
   },
   "meals": {
-    "title": "Registrierte Mahlzeiten",
-    "addMeal": "Mahlzeit hinzufügen",
-    "editMeal": "Mahlzeit bearbeiten",
-    "deleteMeal": "Mahlzeit löschen",
-    "deleteMealConfirm": "Diese Mahlzeit löschen?",
+    "title": "Registrierte Lebensmittel",
+    "addMeal": "Lebensmittel hinzufügen",
+    "editMeal": "Lebensmittel bearbeiten",
+    "deleteMeal": "Lebensmittel löschen",
+    "deleteMealConfirm": "Dieses Lebensmittel löschen?",
     "name": "Name",
     "portion": "Portion (g)",
     "carbs": "Kohlenhydrate (g)",
     "fat": "Fett (g)",
     "protein": "Protein (g)",
     "save": "Speichern",
-    "noMeals": "Keine Mahlzeiten registriert"
+    "noMeals": "Keine Lebensmittel registriert"
+  },
+  "combos": {
+    "title": "Registrierte Mahlzeiten",
+    "addCombo": "Mahlzeit hinzufügen",
+    "editCombo": "Mahlzeit bearbeiten",
+    "deleteCombo": "Mahlzeit löschen",
+    "deleteComboConfirm": "Diese Mahlzeit löschen?",
+    "noCombos": "Keine Mahlzeiten registriert",
+    "name": "Name",
+    "selectMeals": "Lebensmittel auswählen",
+    "mealCount": "{{count}} Lebensmittel"
   }
 }

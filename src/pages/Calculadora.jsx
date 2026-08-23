@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '../contexts/ThemeContext';
 import { useCalculate } from '../contexts/CalculateContext';
 import { useSettings } from '../contexts/SettingsContext';
+import { useMeals } from '../contexts/MealsContext';
+import { useCombos } from '../contexts/CombosContext';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Home } from 'lucide-react';
 import { useDialog } from '../components/Dialog';
@@ -16,8 +18,9 @@ export default function Calculadora() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { isDark } = useTheme();
-  const { portions, addEmptyPortion, addMealPortion, updatePortion, removePortion, clearAll } = useCalculate();
+  const { portions, addEmptyPortion, addMealPortion, addComboPortion, updatePortion, removePortion, clearAll } = useCalculate();
   const { advancedCarbsPerUnit, carbsPerUnit, currentGramsPerUnit, currentTimeLabel } = useSettings();
+  const { meals } = useMeals();
   const { showConfirm } = useDialog();
   const [dialogVisible, setDialogVisible] = useState(false);
   const [settingsVisible, setSettingsVisible] = useState(false);
@@ -32,6 +35,13 @@ export default function Calculadora() {
   const handleDeleteAll = () => {
     if (portions.length === 0) return;
     showConfirm(t('calculadora.deleteAllConfirm'), clearAll);
+  };
+
+  const handleAddCombo = (combo) => {
+    const comboMeals = (combo.mealIds || [])
+      .map((id) => meals.find((m) => m.id === id))
+      .filter(Boolean);
+    addComboPortion(comboMeals);
   };
 
   return (
@@ -50,7 +60,7 @@ export default function Calculadora() {
                 className="header-btn"
                 onClick={() => setTempValue(null)}
                 title={t('calculadora.tempValue')}
-                style={{ width: 'auto', height: 'auto', padding: '0 6px', fontSize: 20, fontWeight: 700, color: '#208AEF' }}
+                style={{ width: 'auto', height: 'auto', padding: '0 6px', fontSize: 16, fontWeight: 700, color: '#208AEF' }}
               >
                 {tempValue} {t('common.gPerUnit')}
               </button>
@@ -70,7 +80,7 @@ export default function Calculadora() {
               className="header-btn"
               onClick={() => setSettingsVisible(true)}
               title={t('home.settings')}
-              style={{ width: 'auto', padding: '0 6px', fontSize: 20, fontWeight: 700, color: '#208AEF' }}
+              style={{ width: 'auto', padding: '0 6px', fontSize: 16, fontWeight: 700, color: '#208AEF' }}
             >
               {carbsPerUnit} {t('common.gPerUnit')}
             </button>
@@ -115,6 +125,7 @@ export default function Calculadora() {
           onClose={() => setDialogVisible(false)}
           onAddEmpty={addEmptyPortion}
           onAddMeal={addMealPortion}
+          onAddCombo={handleAddCombo}
         />
       )}
 

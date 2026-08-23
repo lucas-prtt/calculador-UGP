@@ -43,6 +43,21 @@ export function CalculateProvider({ children }) {
     ]);
   }, []);
 
+  const addComboPortion = useCallback((meals) => {
+    const items = meals.map((meal) => ({
+      id: (nextId++).toString(),
+      name: meal.name,
+      grams: meal.portion,
+      carbs: meal.carbs,
+      fat: meal.fat,
+      protein: meal.protein,
+      isMeal: true,
+      mealId: meal.id,
+      baseMeal: meal,
+    }));
+    setPortions((prev) => [...prev, ...items]);
+  }, []);
+
   const updatePortion = useCallback((id, data) => {
     setPortions((prev) => prev.map((p) => (p.id === id ? { ...p, ...data } : p)));
   }, []);
@@ -57,7 +72,7 @@ export function CalculateProvider({ children }) {
 
   return (
     <CalculateContext.Provider
-      value={{ portions, addEmptyPortion, addMealPortion, updatePortion, removePortion, clearAll }}
+      value={{ portions, addEmptyPortion, addMealPortion, addComboPortion, updatePortion, removePortion, clearAll }}
     >
       {children}
     </CalculateContext.Provider>

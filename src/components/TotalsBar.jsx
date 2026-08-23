@@ -54,6 +54,19 @@ export default function TotalsBar({ portions, overrideValue = null }) {
     </div>
   );
 
+  const ColInline = ({ label, value, big }) => (
+    <div style={{ flex: 1, textAlign: 'center', minWidth: 0 }}>
+      <span style={{ fontSize: 11, color: textColor }}>{label}</span>{' '}
+      <span style={{
+        fontSize: big ? 16 : 13,
+        fontWeight: big ? 800 : 600,
+        color: big ? accentColor : textColor,
+      }}>
+        {value}
+      </span>
+    </div>
+  );
+
   const Divider = () => (
     <div style={{ borderTop: `1px solid ${borderColor}`, margin: '8px 0' }} />
   );
@@ -75,16 +88,22 @@ export default function TotalsBar({ portions, overrideValue = null }) {
         </>
       ) : valueAppearance === 'medium' ? (
         <>
-          <LineRow label={t('calculadora.totalCarbsShort')} value={`${totalCarbs.toFixed(1)}${t('common.gram')}`} />
-          <LineRow label={t('calculadora.totalFatShort')} value={`${totalFat.toFixed(1)}${t('common.gram')}`} />
-          <LineRow label={t('calculadora.totalProteinShort')} value={`${totalProtein.toFixed(1)}${t('common.gram')}`} />
+          <Row>
+            <ColInline label={t('calculadora.totalCarbsShort')} value={`${totalCarbs.toFixed(1)}${t('common.gram')}`} />
+            <ColInline label={t('calculadora.totalFatShort')} value={`${totalFat.toFixed(1)}${t('common.gram')}`} />
+            <ColInline label={t('calculadora.totalProteinShort')} value={`${totalProtein.toFixed(1)}${t('common.gram')}`} />
+          </Row>
           <Divider />
-          <LineRow label={t('calculadora.carbsCaloriesShort')} value={`${carbsCal.toFixed(0)} ${t('common.kcal')}`} />
-          <LineRow label={t('calculadora.fatCaloriesShort')} value={`${fatCal.toFixed(0)} ${t('common.kcal')}`} />
-          <LineRow label={t('calculadora.proteinCaloriesShort')} value={`${proteinCal.toFixed(0)} ${t('common.kcal')}`} />
+          <Row>
+            <ColInline label={t('calculadora.carbsCaloriesShort')} value={`${carbsCal.toFixed(0)} ${t('common.kcal')}`} />
+            <ColInline label={t('calculadora.fatCaloriesShort')} value={`${fatCal.toFixed(0)} ${t('common.kcal')}`} />
+            <ColInline label={t('calculadora.proteinCaloriesShort')} value={`${proteinCal.toFixed(0)} ${t('common.kcal')}`} />
+          </Row>
           <Divider />
-          <LineRow label={t('calculadora.insulinUnitsShort')} value={insulinUnits.toFixed(2)} big />
-          <LineRow label={t('calculadora.ugp')} value={ugp.toFixed(2)} big />
+          <Row>
+            <ColInline label={t('calculadora.insulinUnitsShort')} value={insulinUnits.toFixed(2)} big />
+            <ColInline label={t('calculadora.ugp')} value={ugp.toFixed(2)} big />
+          </Row>
         </>
       ) : (
         <>

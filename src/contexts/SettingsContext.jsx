@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { useStorage } from '../storage/StorageContext';
-import { SLOTS, defaultCurve, curveValueAt, timeToHours, round1, formatTime } from '../utils/carbsCurve';
+import { DEFAULT_CURVE_POINTS, MIN_CURVE_POINTS, MAX_CURVE_POINTS, defaultCurve, resampleCurve, curveValueAt, timeToHours, round1, formatTime } from '../utils/carbsCurve';
 
 const SettingsContext = createContext(null);
 
@@ -14,6 +14,7 @@ export function SettingsProvider({ children }) {
   const [curveMin, setCurveMinState] = useState(null);
   const [curveMax, setCurveMaxState] = useState(null);
   const [valueAppearance, setValueAppearanceState] = useState('large');
+  const [curvePoints, setCurvePointsState] = useState(DEFAULT_CURVE_POINTS);
   const [now, setNow] = useState(() => new Date());
 
   useEffect(() => {
@@ -21,12 +22,13 @@ export function SettingsProvider({ children }) {
     storage.get('caloriesPerUnit').then((v) => { if (v !== null) setCaloriesPerUnitState(v); });
     storage.get('advancedCarbsPerUnit').then((v) => { if (v !== null) setAdvancedCarbsPerUnitState(v === true); });
     storage.get('carbsPerUnitCurve').then((v) => {
-      if (Array.isArray(v) && v.length === SLOTS) setCarbsPerUnitCurveState(v);
+      if (Array.isArray(v)) setCarbsPerUnitCurveState(v);
     });
     storage.get('hoursOffset').then((v) => { if (v !== null) setHoursOffsetState(v); });
     storage.get('curveMin').then((v) => { if (v !== null) setCurveMinState(v); });
     storage.get('curveMax').then((v) => { if (v !== null) setCurveMaxState(v); });
     storage.get('valueAppearance').then((v) => { if (v !== null) setValueAppearanceState(v); });
+    storage.get('curvePoints').then((v) => { if (v !== null) setCurvePointsState(Math.min(MAX_CURVE_POINTS, Math.max(MIN_CURVE_POINTS, Number(v) || DEFAULT_CURVE_POINTS))); });
   }, []);
 
   useEffect(() => {
@@ -75,15 +77,28 @@ export function SettingsProvider({ children }) {
     storage.set('valueAppearance', v);
   }, []);
 
+  const saveCurvePoints = useCallback((v) => {
+    const count = Math.min(MAX_CURVE_POINTS, Math.max(MIN_CURVE_POINTS, Math.round(Number(v) || curvePoints)));
+    if (count === curvePoints) return;
+    const current = carbsPerUnitCurve && carbsPerUnitCurve.length === curvePoints
+      ? carbsPerUnitCurve
+      : defaultCurve(carbsPerUnit, curvePoints);
+    const resampled = resampleCurve(current, count);
+    setCarbsPerUnitCurveState(resampled);
+    storage.set('carbsPerUnitCurve', resampled);
+    setCurvePointsState(count);
+    storage.set('curvePoints', count);
+  }, [curvePoints, carbsPerUnit, carbsPerUnitCurve]);
+
   const saveCarbsPerUnitCurve = useCallback((arr) => {
-    const sanitized = Array.isArray(arr) && arr.length === SLOTS ? arr.slice() : defaultCurve(carbsPerUnit);
+    const sanitized = Array.isArray(arr) && arr.length === curvePoints ? arr.slice() : defaultCurve(carbsPerUnit, curvePoints);
     setCarbsPerUnitCurveState(sanitized);
     storage.set('carbsPerUnitCurve', sanitized);
-  }, [carbsPerUnit]);
+  }, [carbsPerUnit, curvePoints]);
 
-  const curve = carbsPerUnitCurve && carbsPerUnitCurve.length === SLOTS
+  const curve = carbsPerUnitCurve && carbsPerUnitCurve.length === curvePoints
     ? carbsPerUnitCurve
-    : defaultCurve(carbsPerUnit);
+    : defaultCurve(carbsPerUnit, curvePoints);
 
   const effectiveNow = new Date(now.getTime() + hoursOffset * 60000);
 
@@ -104,6 +119,7 @@ export function SettingsProvider({ children }) {
         curveMin,
         curveMax,
         valueAppearance,
+        curvePoints,
         currentGramsPerUnit,
         currentTimeLabel,
         setCarbsPerUnit,
@@ -115,6 +131,7 @@ export function SettingsProvider({ children }) {
         saveHoursOffset,
         saveCurveRange,
         saveValueAppearance,
+        saveCurvePoints,
       }}
     >
       {children}

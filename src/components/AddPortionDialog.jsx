@@ -2,13 +2,17 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../contexts/ThemeContext';
 import { useMeals } from '../contexts/MealsContext';
+import { useCombos } from '../contexts/CombosContext';
 import MealSelectorDialog from './MealSelectorDialog';
+import ComboSelectorDialog from './ComboSelectorDialog';
 
-export default function AddPortionDialog({ onClose, onAddEmpty, onAddMeal }) {
+export default function AddPortionDialog({ onClose, onAddEmpty, onAddMeal, onAddCombo }) {
   const { t } = useTranslation();
   const { isDark } = useTheme();
   const { meals } = useMeals();
+  const { combos } = useCombos();
   const [showMealSelector, setShowMealSelector] = useState(false);
+  const [showComboSelector, setShowComboSelector] = useState(false);
 
   const textColor = isDark ? '#FFFFFF' : '#000000';
   const bg = isDark ? '#1C1C1E' : '#FFFFFF';
@@ -18,6 +22,7 @@ export default function AddPortionDialog({ onClose, onAddEmpty, onAddMeal }) {
 
   const handleClose = () => {
     setShowMealSelector(false);
+    setShowComboSelector(false);
     onClose();
   };
 
@@ -27,11 +32,26 @@ export default function AddPortionDialog({ onClose, onAddEmpty, onAddMeal }) {
     onClose();
   };
 
+  const handleSelectCombo = (combo) => {
+    setShowComboSelector(false);
+    onAddCombo(combo);
+    onClose();
+  };
+
   if (showMealSelector) {
     return (
       <MealSelectorDialog
         onClose={() => setShowMealSelector(false)}
         onSelect={handleSelectMeal}
+      />
+    );
+  }
+
+  if (showComboSelector) {
+    return (
+      <ComboSelectorDialog
+        onClose={() => setShowComboSelector(false)}
+        onSelect={handleSelectCombo}
       />
     );
   }
@@ -82,6 +102,32 @@ export default function AddPortionDialog({ onClose, onAddEmpty, onAddMeal }) {
           {meals.length === 0 && (
             <div style={{ fontSize: 12, marginTop: 4, color: placeholderColor }}>
               {t('meals.noMeals')}
+            </div>
+          )}
+        </button>
+
+        <button
+          onClick={() => {
+            if (combos.length === 0) return;
+            setShowComboSelector(true);
+          }}
+          disabled={combos.length === 0}
+          style={{
+            backgroundColor: inputBg,
+            color: combos.length === 0 ? placeholderColor : textColor,
+            border: 'none',
+            padding: 16,
+            borderRadius: 10,
+            fontSize: 16,
+            fontWeight: 500,
+            cursor: combos.length === 0 ? 'default' : 'pointer',
+            textAlign: 'center',
+          }}
+        >
+          {t('calculadora.fromCombo')}
+          {combos.length === 0 && (
+            <div style={{ fontSize: 12, marginTop: 4, color: placeholderColor }}>
+              {t('combos.noCombos')}
             </div>
           )}
         </button>

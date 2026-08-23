@@ -41,7 +41,8 @@ export default function CarbsCurveChart({ curve, minValue = 0, maxValue = 60, of
   }, []);
 
   const n = curve.length;
-  const W = n * STEP_PX + M.left + M.right;
+  const hoursPerPoint = 24 / n;
+  const W = 24 * STEP_PX + M.left + M.right;
 
   const span = maxValue - minValue > 0 ? maxValue - minValue : 1;
   const plotW = W - M.left - M.right;
@@ -62,8 +63,8 @@ export default function CarbsCurveChart({ curve, minValue = 0, maxValue = 60, of
     let d = '';
     for (let i = 0; i < n; i++) {
       const j = (i + 1) % n;
-      const x0 = xForHours(i);
-      const x1 = i === n - 1 ? xForHours(24) : xForHours(j);
+      const x0 = xForHours(i * hoursPerPoint);
+      const x1 = i === n - 1 ? xForHours(24) : xForHours(j * hoursPerPoint);
       const y0 = yForValue(curve[i]);
       const y1 = yForValue(curve[j]);
       let cy0;
@@ -153,6 +154,27 @@ export default function CarbsCurveChart({ curve, minValue = 0, maxValue = 60, of
 
   return (
     <div ref={wrapRef} style={{ height: '100%', width: W, minHeight: MIN_HEIGHT }}>
+      <div style={{
+        position: 'sticky',
+        left: 0,
+        zIndex: 5,
+        width: M.left,
+        height,
+        marginBottom: -height,
+        background: isDark ? '#000000' : '#FFFFFF',
+      }}>
+        <svg width={M.left} height={height} style={{ display: 'block' }}>
+          <text x={M.left - 6} y={M.top - 8} fontSize={10} fill={secondaryColor} textAnchor="end">
+            {t('common.gPerUnit')}
+          </text>
+          {yTicks.map((v) => (
+            <text key={v} x={M.left - 6} y={yForValue(v) + 3} fontSize={11} fill={textColor} textAnchor="end">
+              {Math.round(v * 10) / 10}
+            </text>
+          ))}
+        </svg>
+      </div>
+
       <svg
         ref={svgRef}
         width={W}
@@ -160,25 +182,15 @@ export default function CarbsCurveChart({ curve, minValue = 0, maxValue = 60, of
         style={{ display: 'block', touchAction: dragging != null ? 'none' : 'auto' }}
       >
         {yTicks.map((v) => (
-          <g key={v}>
-            <line
-              x1={M.left}
-              y1={yForValue(v)}
-              x2={W - M.right}
-              y2={yForValue(v)}
-              stroke={gridColor}
-              strokeWidth={1}
-            />
-            <text
-              x={M.left - 6}
-              y={yForValue(v) + 3}
-              fontSize={11}
-              fill={textColor}
-              textAnchor="end"
-            >
-              {Math.round(v * 10) / 10}
-            </text>
-          </g>
+          <line
+            key={v}
+            x1={M.left}
+            y1={yForValue(v)}
+            x2={W - M.right}
+            y2={yForValue(v)}
+            stroke={gridColor}
+            strokeWidth={1}
+          />
         ))}
 
         {xTicks.map((h) => (
@@ -219,7 +231,7 @@ export default function CarbsCurveChart({ curve, minValue = 0, maxValue = 60, of
         {curve.map((v, i) => (
           <g key={i}>
             <circle
-              cx={xForHours(i)}
+              cx={xForHours(i * hoursPerPoint)}
               cy={yForValue(v)}
               r={16}
               fill="transparent"
@@ -227,7 +239,7 @@ export default function CarbsCurveChart({ curve, minValue = 0, maxValue = 60, of
               onPointerDown={handlePointerDown(i)}
             />
             <circle
-              cx={xForHours(i)}
+              cx={xForHours(i * hoursPerPoint)}
               cy={yForValue(v)}
               r={dragging === i ? 8 : 6}
               fill={handleColor}
@@ -238,9 +250,20 @@ export default function CarbsCurveChart({ curve, minValue = 0, maxValue = 60, of
           </g>
         ))}
 
-        <text x={W - M.right} y={M.top - 8} fontSize={10} fill={secondaryColor} textAnchor="end">
-          {t('common.gPerUnit')}
-        </text>
+        {dragging != null && (() => {
+          const bx = xForHours(dragging * hoursPerPoint);
+          const cy = yForValue(curve[dragging]);
+          const rx = bx + 16;
+          const ry = Math.max(4, cy - 56);
+          return (
+            <g>
+              <rect x={rx} y={ry} width={58} height={28} rx={7} fill={accentColor} />
+              <text x={rx + 29} y={ry + 19} textAnchor="middle" fontSize={16} fontWeight={700} fill="#FFFFFF">
+                {Math.round(curve[dragging] * 10) / 10}
+              </text>
+            </g>
+          );
+        })()}
       </svg>
     </div>
   );

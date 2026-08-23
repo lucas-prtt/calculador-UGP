@@ -1,8 +1,9 @@
-export const SLOTS = 24;
-export const STEP_MINUTES = 60;
+export const DEFAULT_CURVE_POINTS = 24;
+export const MIN_CURVE_POINTS = 4;
+export const MAX_CURVE_POINTS = 48;
 
-export function defaultCurve(value) {
-  return new Array(SLOTS).fill(value);
+export function defaultCurve(value, count = DEFAULT_CURVE_POINTS) {
+  return new Array(count).fill(value);
 }
 
 export function round1(x) {
@@ -142,4 +143,16 @@ export function curveValueAt(curve, hours) {
 
   _curveCache = { closing: false, h, pm1, p0, p1, p2, value };
   return value;
+}
+
+// Re-muestrea una curva a una nueva cantidad de puntos (interpolando suavemente).
+export function resampleCurve(curve, newCount) {
+  const count = Math.max(1, Math.round(newCount));
+  const n = curve.length;
+  if (!n) return defaultCurve(0, count);
+  const result = new Array(count);
+  for (let k = 0; k < count; k++) {
+    result[k] = curveValueAt(curve, (k / count) * 24);
+  }
+  return result;
 }

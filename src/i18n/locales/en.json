@@ -3,7 +3,8 @@
   "home": {
     "calculate": "Calculate FPU",
     "settings": "Settings",
-    "registeredMeals": "Registered Meals"
+    "registeredMeals": "Registered Foods",
+    "combos": "Registered Meals"
   },
   "settings": {
     "title": "Settings",
@@ -27,6 +28,7 @@
     "curveRange": "Chart range",
     "minValue": "Minimum",
     "maxValue": "Maximum",
+    "curvePoints": "Adjustment precision",
     "valueAppearance": "Calculated values appearance",
     "appearanceLarge": "Large",
     "appearanceMedium": "Medium",
@@ -59,9 +61,11 @@
     "deleteAll": "Delete all",
     "deleteAllConfirm": "Delete all portions?",
     "emptyPortion": "Empty portion",
-    "fromMeal": "From meal",
-    "searchMeal": "Search meal...",
-    "selectMeal": "Select a meal",
+    "fromMeal": "From food",
+    "fromCombo": "From meal",
+    "searchMeal": "Search food...",
+    "selectMeal": "Select a food",
+    "selectCombo": "Select a meal",
     "gramsConsumed": "Grams consumed",
     "totalCarbs": "Total carbs",
     "totalFat": "Total fat",
@@ -81,8 +85,8 @@
     "fatCaloriesShort": "kcal fat",
     "proteinCaloriesShort": "kcal protein",
     "insulinUnitsShort": "Insulin",
-    "registerAsMeal": "Save as meal",
-    "gramsForMeal": "How many grams is this meal?",
+    "registerAsMeal": "Save as food",
+    "gramsForMeal": "How many grams is this food?",
     "deletePortion": "Delete portion",
     "deletePortionConfirm": "Delete this portion?",
     "macroC": "C",
@@ -90,17 +94,28 @@
     "macroP": "P"
   },
   "meals": {
-    "title": "Registered Meals",
-    "addMeal": "Add meal",
-    "editMeal": "Edit meal",
-    "deleteMeal": "Delete meal",
-    "deleteMealConfirm": "Delete this meal?",
+    "title": "Registered Foods",
+    "addMeal": "Add food",
+    "editMeal": "Edit food",
+    "deleteMeal": "Delete food",
+    "deleteMealConfirm": "Delete this food?",
     "name": "Name",
     "portion": "Portion (g)",
     "carbs": "Carbs (g)",
     "fat": "Fat (g)",
     "protein": "Protein (g)",
     "save": "Save",
-    "noMeals": "No meals registered yet"
+    "noMeals": "No foods registered yet"
+  },
+  "combos": {
+    "title": "Registered Meals",
+    "addCombo": "Add meal",
+    "editCombo": "Edit meal",
+    "deleteCombo": "Delete meal",
+    "deleteComboConfirm": "Delete this meal?",
+    "noCombos": "No meals registered yet",
+    "name": "Name",
+    "selectMeals": "Select foods",
+    "mealCount": "{{count}} foods"
   }
 }
