@@ -11,6 +11,9 @@ export default function PortionCard({ portion, onUpdate, onRemove }) {
   const { showConfirm } = useDialog();
   const [registerVisible, setRegisterVisible] = useState(false);
   const [registerGrams, setRegisterGrams] = useState('');
+  const [carbsStr, setCarbsStr] = useState(portion.carbs != null ? String(portion.carbs) : '');
+  const [fatStr, setFatStr] = useState(portion.fat != null ? String(portion.fat) : '');
+  const [proteinStr, setProteinStr] = useState(portion.protein != null ? String(portion.protein) : '');
 
   const meal = portion.isMeal ? meals.find((m) => m.id === portion.mealId) : null;
 
@@ -38,6 +41,9 @@ export default function PortionCard({ portion, onUpdate, onRemove }) {
 
   const handleMacroChange = (field, value) => {
     if (portion.isMeal) return;
+    if (field === 'carbs') setCarbsStr(value);
+    if (field === 'fat') setFatStr(value);
+    if (field === 'protein') setProteinStr(value);
     onUpdate(portion.id, { [field]: Number(value) || 0 });
   };
 
@@ -61,7 +67,7 @@ export default function PortionCard({ portion, onUpdate, onRemove }) {
   const handleRemove = () => {
     showConfirm(t('calculadora.deletePortionConfirm'), () => {
       onRemove(portion.id);
-    });
+    }, { confirmLabel: t('common.confirm') });
   };
 
   const macroValue = (val) => (val != null ? String(val) : '');
@@ -137,9 +143,10 @@ export default function PortionCard({ portion, onUpdate, onRemove }) {
               {t('calculadora.macroC')}
             </span>
             <input
-              value={macroValue(portion.carbs)}
+              value={portion.isMeal ? macroValue(portion.carbs) : carbsStr}
               onChange={(e) => handleMacroChange('carbs', e.target.value)}
-              type="number"
+              type="text"
+              inputMode="decimal"
               readOnly={portion.isMeal}
               placeholder="0"
               style={inputStyle(portion.isMeal)}
@@ -150,9 +157,10 @@ export default function PortionCard({ portion, onUpdate, onRemove }) {
               {t('calculadora.macroF')}
             </span>
             <input
-              value={macroValue(portion.fat)}
+              value={portion.isMeal ? macroValue(portion.fat) : fatStr}
               onChange={(e) => handleMacroChange('fat', e.target.value)}
-              type="number"
+              type="text"
+              inputMode="decimal"
               readOnly={portion.isMeal}
               placeholder="0"
               style={inputStyle(portion.isMeal)}
@@ -163,9 +171,10 @@ export default function PortionCard({ portion, onUpdate, onRemove }) {
               {t('calculadora.macroP')}
             </span>
             <input
-              value={macroValue(portion.protein)}
+              value={portion.isMeal ? macroValue(portion.protein) : proteinStr}
               onChange={(e) => handleMacroChange('protein', e.target.value)}
-              type="number"
+              type="text"
+              inputMode="decimal"
               readOnly={portion.isMeal}
               placeholder="0"
               style={inputStyle(portion.isMeal)}

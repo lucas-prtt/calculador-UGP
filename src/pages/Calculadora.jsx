@@ -3,10 +3,11 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '../contexts/ThemeContext';
 import { useCalculate } from '../contexts/CalculateContext';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Home } from 'lucide-react';
+import { ArrowLeft, Home, Settings } from 'lucide-react';
 import { useDialog } from '../components/Dialog';
 import PortionCard from '../components/PortionCard';
 import AddPortionDialog from '../components/AddPortionDialog';
+import SettingsDialog from '../components/SettingsDialog';
 import TotalsBar from '../components/TotalsBar';
 
 export default function Calculadora() {
@@ -16,6 +17,7 @@ export default function Calculadora() {
   const { portions, addEmptyPortion, addMealPortion, updatePortion, removePortion, clearAll } = useCalculate();
   const { showConfirm } = useDialog();
   const [dialogVisible, setDialogVisible] = useState(false);
+  const [settingsVisible, setSettingsVisible] = useState(false);
 
   const textColor = isDark ? '#FFFFFF' : '#000000';
   const bg = isDark ? '#000000' : '#FFFFFF';
@@ -29,13 +31,16 @@ export default function Calculadora() {
   return (
     <div className="page" style={{ backgroundColor: bg }}>
       <div className="header" style={{ borderColor: headerBorder }}>
-        <div className="header-left">
+        <div className="header-left" style={{ width: 96 }}>
           <button className="header-btn" onClick={() => navigate(-1)}>
             <ArrowLeft size={24} color="#208AEF" />
           </button>
         </div>
         <span className="header-title" style={{ color: textColor }}>{t('calculadora.title')}</span>
-        <div className="header-right">
+        <div className="header-right" style={{ width: 96, gap: 4 }}>
+          <button className="header-btn" onClick={() => setSettingsVisible(true)} title={t('home.settings')}>
+            <Settings size={24} color="#208AEF" />
+          </button>
           <button className="header-btn" onClick={() => navigate('/')} title="Home">
             <Home size={24} color="#208AEF" />
           </button>
@@ -77,6 +82,10 @@ export default function Calculadora() {
           onAddEmpty={addEmptyPortion}
           onAddMeal={addMealPortion}
         />
+      )}
+
+      {settingsVisible && (
+        <SettingsDialog onClose={() => setSettingsVisible(false)} />
       )}
     </div>
   );

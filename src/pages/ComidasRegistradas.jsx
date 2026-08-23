@@ -13,6 +13,7 @@ export default function ComidasRegistradas() {
   const navigate = useNavigate();
   const { isDark } = useTheme();
   const { meals, addMeal, updateMeal, deleteMeal } = useMeals();
+  const { showConfirm } = useDialog();
 
   const [dialogVisible, setDialogVisible] = useState(false);
   const [editingMeal, setEditingMeal] = useState(null);
@@ -34,7 +35,7 @@ export default function ComidasRegistradas() {
   const handleDelete = (meal) => {
     showConfirm(t('meals.deleteMealConfirm'), () => {
       deleteMeal(meal.id);
-    });
+    }, { confirmLabel: t('common.confirm') });
   };
 
   const handleSave = (data) => {

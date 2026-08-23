@@ -1,20 +1,11 @@
-import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../contexts/ThemeContext';
-import { useStorage } from '../storage/StorageContext';
+import { useSettings } from '../contexts/SettingsContext';
 
 export default function TotalsBar({ portions }) {
   const { t } = useTranslation();
   const { isDark } = useTheme();
-  const storage = useStorage();
-
-  const [carbsPerUnit, setCarbsPerUnit] = useState(15);
-  const [caloriesPerUnit, setCaloriesPerUnit] = useState(150);
-
-  useEffect(() => {
-    storage.get('carbsPerUnit').then((v) => { if (v !== null) setCarbsPerUnit(v); });
-    storage.get('caloriesPerUnit').then((v) => { if (v !== null) setCaloriesPerUnit(v); });
-  }, []);
+  const { carbsPerUnit, caloriesPerUnit } = useSettings();
 
   const bg = isDark ? '#1C1C1E' : '#F2F2F7';
   const textColor = isDark ? '#FFFFFF' : '#000000';

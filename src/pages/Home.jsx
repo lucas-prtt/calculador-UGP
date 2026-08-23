@@ -55,23 +55,6 @@ export default function Home() {
           {t('home.calculate')}
         </button>
         <button
-          onClick={() => navigate('/opciones')}
-          style={{
-            backgroundColor: buttonBg,
-            color: textColor,
-            border: 'none',
-            width: '100%',
-            padding: '18px',
-            borderRadius: 12,
-            fontSize: 18,
-            fontWeight: 600,
-            cursor: 'pointer',
-            textAlign: 'center',
-          }}
-        >
-          {t('home.settings')}
-        </button>
-        <button
           onClick={() => navigate('/comidas-registradas')}
           style={{
             backgroundColor: buttonBg,
@@ -87,6 +70,23 @@ export default function Home() {
           }}
         >
           {t('home.registeredMeals')}
+        </button>
+        <button
+          onClick={() => navigate('/opciones')}
+          style={{
+            backgroundColor: buttonBg,
+            color: textColor,
+            border: 'none',
+            width: '100%',
+            padding: '18px',
+            borderRadius: 12,
+            fontSize: 18,
+            fontWeight: 600,
+            cursor: 'pointer',
+            textAlign: 'center',
+          }}
+        >
+          {t('home.settings')}
         </button>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../contexts/ThemeContext';
-import { useStorage } from '../storage/StorageContext';
+import { useSettings } from '../contexts/SettingsContext';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Home } from 'lucide-react';
 import { useDialog } from '../components/Dialog';
@@ -11,35 +11,35 @@ export default function Opciones() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { theme, isDark, setTheme } = useTheme();
-  const storage = useStorage();
+  const { carbsPerUnit, caloriesPerUnit, saveCarbsPerUnit, saveCaloriesPerUnit } = useSettings();
   const { showConfirm } = useDialog();
 
-  const [carbs, setCarbs] = useState('15');
-  const [calories, setCalories] = useState('150');
+  const [carbs, setCarbs] = useState(String(carbsPerUnit));
+  const [calories, setCalories] = useState(String(caloriesPerUnit));
 
   useEffect(() => {
-    storage.get('carbsPerUnit').then((v) => { if (v !== null) setCarbs(String(v)); });
-    storage.get('caloriesPerUnit').then((v) => { if (v !== null) setCalories(String(v)); });
-  }, []);
+    setCarbs(String(carbsPerUnit));
+    setCalories(String(caloriesPerUnit));
+  }, [carbsPerUnit, caloriesPerUnit]);
 
   const saveCarbs = (value) => {
     setCarbs(value);
     const num = Number(value);
-    if (num > 0) storage.set('carbsPerUnit', num);
+    if (num > 0) saveCarbsPerUnit(num);
   };
 
   const saveCalories = (value) => {
     setCalories(value);
     const num = Number(value);
-    if (num > 0) storage.set('caloriesPerUnit', num);
+    if (num > 0) saveCaloriesPerUnit(num);
   };
 
   const restoreDefaults = () => {
     showConfirm(t('settings.restoreDefaultsConfirm'), () => {
       setCarbs('15');
       setCalories('150');
-      storage.set('carbsPerUnit', 15);
-      storage.set('caloriesPerUnit', 150);
+      saveCarbsPerUnit(15);
+      saveCaloriesPerUnit(150);
     });
   };
 

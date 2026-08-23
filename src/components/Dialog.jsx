@@ -9,8 +9,8 @@ export function DialogProvider({ children }) {
   const [dialog, setDialog] = useState(null);
   const { isDark } = useTheme();
 
-  const showConfirm = useCallback((message, onConfirm) => {
-    setDialog({ type: 'confirm', message, onConfirm });
+  const showConfirm = useCallback((message, onConfirm, options) => {
+    setDialog({ type: 'confirm', message, onConfirm, confirmLabel: options?.confirmLabel });
   }, []);
 
   const showAlert = useCallback((message, onClose) => {
@@ -51,7 +51,7 @@ export function DialogProvider({ children }) {
                       cursor: 'pointer',
                     }}
                   >
-                    {t('common.delete')}
+                    {dialog.confirmLabel || t('common.delete')}
                   </button>
                 </>
               ) : (
