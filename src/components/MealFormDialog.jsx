@@ -29,9 +29,11 @@ export default function MealFormDialog({ onClose, onSave, initial }) {
 
   const handleSave = () => {
     if (!name.trim() || !portion) return;
+    const portionNum = Number(portion);
+    if (!(portionNum > 0)) return;
     onSave({
       name: name.trim(),
-      portion: Number(portion),
+      portion: portionNum,
       carbs: Number(carbs) || 0,
       fat: Number(fat) || 0,
       protein: Number(protein) || 0,

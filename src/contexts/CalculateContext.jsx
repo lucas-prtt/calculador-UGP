@@ -26,7 +26,7 @@ export function CalculateProvider({ children }) {
 
   const addMealPortion = useCallback((meal, grams) => {
     const id = (nextId++).toString();
-    const ratio = grams / meal.portion;
+    const ratio = meal.portion > 0 ? grams / meal.portion : 0;
     setPortions((prev) => [
       ...prev,
       {

@@ -29,7 +29,7 @@ export default function PortionCard({ portion, onUpdate, onRemove }) {
   const handleGramsChange = (value) => {
     const grams = Number(value) || 0;
     if (portion.isMeal && meal) {
-      const ratio = grams / meal.portion;
+      const ratio = meal.portion > 0 ? grams / meal.portion : 0;
       onUpdate(portion.id, {
         grams,
         carbs: Math.round(meal.carbs * ratio * 100) / 100,
