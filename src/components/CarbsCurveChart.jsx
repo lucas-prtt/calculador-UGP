@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../contexts/ThemeContext';
-import { snap05, clamp, curveValueAt, timeToHours, computeMonotoneSlopes } from '../utils/carbsCurve';
+import { snap05, clamp, curveValueAt, timeToHours, computeMonotoneSlopes, niceTicks } from '../utils/carbsCurve';
 
 const STEP_PX = 48;
 const M = { top: 22, right: 20, bottom: 34, left: 44 };
@@ -145,12 +145,7 @@ export default function CarbsCurveChart({ curve, minValue = 0, maxValue = 60, of
   };
 
   const xTicks = Array.from({ length: 25 }, (_, i) => i);
-  const yTicks = (() => {
-    const arr = [];
-    const start = Math.ceil(minValue / 5) * 5;
-    for (let v = start; v <= maxValue + 1e-6; v += 5) arr.push(v);
-    return arr;
-  })();
+  const yTicks = niceTicks(minValue, maxValue);
 
   const nowHours = timeToHours(new Date(Date.now() + offsetMinutes * 60000));
   const nowX = xForHours(nowHours);

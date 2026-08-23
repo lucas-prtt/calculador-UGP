@@ -6,7 +6,7 @@ import { useSettings } from '../contexts/SettingsContext';
 export default function CurveRangeDialog({ onClose }) {
   const { t } = useTranslation();
   const { isDark } = useTheme();
-  const { carbsPerUnit, curveMin, curveMax, saveCurveRange } = useSettings();
+  const { carbsPerUnit, carbsPerUnitCurve, curveMin, curveMax, saveCurveRange, saveCarbsPerUnitCurve } = useSettings();
 
   const defaultMin = 0;
   const defaultMax = carbsPerUnit * 4;
@@ -23,7 +23,9 @@ export default function CurveRangeDialog({ onClose }) {
     const mn = Number(min);
     const mx = Number(max);
     if (Number.isFinite(mn) && Number.isFinite(mx) && mn >= 0 && mx > mn) {
+      const clamped = carbsPerUnitCurve.map((v) => Math.min(mx, Math.max(mn, v)));
       saveCurveRange(mn, mx);
+      saveCarbsPerUnitCurve(clamped);
     }
     onClose();
   };

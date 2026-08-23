@@ -17,6 +17,29 @@ export function clamp(x, min, max) {
   return Math.min(max, Math.max(min, x));
 }
 
+// Genera marcas "redondas" (1, 2, 2.5, 5 × 10^n) que cubren [min, max].
+export function niceTicks(min, max, targetCount = 10) {
+  if (!(max > min)) return [min];
+  const rawStep = (max - min) / Math.max(1, targetCount - 1);
+  const mag = Math.pow(10, Math.floor(Math.log10(rawStep)));
+  const norm = rawStep / mag;
+  const fractions = [1, 2, 2.5, 5, 10];
+  let stepFrac = fractions[fractions.length - 1];
+  for (const f of fractions) {
+    if (norm <= f) { stepFrac = f; break; }
+  }
+  const step = stepFrac * mag;
+  const start = Math.floor(min / step) * step;
+  const end = Math.ceil(max / step) * step;
+  const ticks = [];
+  const startIdx = Math.round(start / step);
+  const endIdx = Math.round(end / step);
+  for (let k = startIdx; k <= endIdx; k++) {
+    ticks.push(Math.round(k * step * 1e6) / 1e6);
+  }
+  return ticks;
+}
+
 export function timeToHours(date) {
   return date.getHours() + date.getMinutes() / 60;
 }
