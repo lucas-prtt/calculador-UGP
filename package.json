@@ -31,6 +31,7 @@
     "cap:android": "npx cap open android",
     "cap:ios": "npx cap open ios",
     "cap:build:android": "npm run build && npx cap sync && npx cap open android",
-    "build-android-debug": "npm run build && npm run cap:icons && npx cap sync && cd android && gradlew.bat assembleDebug"
+    "build-android": "npm run build && npm run cap:icons && npm run reduce-assets && npx cap sync && cd android && gradlew.bat assembleDebug",
+    "reduce-assets": "node scripts/reduce-assets.js"
   }
 }
